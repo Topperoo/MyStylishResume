@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Stardew Valley Resume</title>
+    <meta name="description" content="A pixel-art inspired resume website styled after Stardew Valley">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Clock Widget -->
+    <div class="stardew-clock">
+        <img src="assets/images/clock.png" alt="Stardew Valley Clock">
+        <div class="clock-date" id="clockDate">Mon. 1</div>
+        <div class="clock-time" id="clockTime">12:00 pm</div>
+    </div>
+
+    <div class="game-container">
+        <!-- Character Portrait Section -->
+        <div class="character-section">
+            <div class="character-portrait">
+                <div class="pixel-avatar"></div>
+                <div class="character-info">
+                    <h1 class="character-name">Your Name</h1>
+                    <p class="character-title">Software Engineer</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span class="icon">📧</span>
+                            <span>your.email@example.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="icon">🔗</span>
+                            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="icon">💼</span>
+                            <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Tabs -->
+        <div class="menu-tabs">
+            <button class="tab active" data-tab="skills">
+                <span class="tab-icon">🪓</span>
+                Skills
+            </button>
+            <button class="tab" data-tab="experience">
+                <span class="tab-icon">📖</span>
+                Experience
+            </button>
+            <button class="tab" data-tab="education">
+                <span class="tab-icon">🎓</span>
+                Education
+            </button>
+            <button class="tab" data-tab="projects">
+                <span class="tab-icon">🏡</span>
+                Projects
+            </button>
+            <button class="tab" data-tab="other">
+                <span class="tab-icon">🌻</span>
+                Other
+            </button>
+        </div>
+
+        <!-- Content Panels -->
+        <div class="content-container">
+            <!-- Skills Panel -->
+            <div class="content-panel active" id="skills">
+                <div class="panel-header">
+                    <h2>🪓 Skills & Proficiency</h2>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-icon frontend"></div>
+                        <div class="skill-info">
+                            <h3>Frontend Development</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="9"></div>
+                            </div>
+                            <span class="skill-level">Level 9</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon backend"></div>
+                        <div class="skill-info">
+                            <h3>Backend Development</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="8"></div>
+                            </div>
+                            <span class="skill-level">Level 8</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon database"></div>
+                        <div class="skill-info">
+                            <h3>Database Management</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="7"></div>
+                            </div>
+                            <span class="skill-level">Level 7</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon devops"></div>
+                        <div class="skill-info">
+                            <h3>DevOps & Cloud</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="6"></div>
+                            </div>
+                            <span class="skill-level">Level 6</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Experience Panel -->
+            <div class="content-panel" id="experience">
+                <div class="panel-header">
+                    <h2>📖 Quest Log - Experience</h2>
+                </div>
+                <div class="experience-list">
+                    <div class="experience-item">
+                        <div class="quest-marker senior"></div>
+                        <div class="experience-content">
+                            <h3>Senior Software Engineer</h3>
+                            <p class="company">Tech Company Inc.</p>
+                            <p class="duration">2022 - Present</p>
+                            <ul class="achievements">
+                                <li>Led development of key features that improved user engagement by 40%</li>
+                                <li>Mentored junior developers and established coding standards</li>
+                                <li>Architected scalable solutions serving 1M+ users</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="experience-item">
+                        <div class="quest-marker regular"></div>
+                        <div class="experience-content">
+                            <h3>Software Engineer</h3>
+                            <p class="company">Startup Co.</p>
+                            <p class="duration">2020 - 2022</p>
+                            <ul class="achievements">
+                                <li>Built full-stack applications from concept to deployment</li>
+                                <li>Collaborated with cross-functional teams on product development</li>
+                                <li>Implemented CI/CD pipelines reducing deployment time by 60%</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education Panel -->
+            <div class="content-panel" id="education">
+                <div class="panel-header">
+                    <h2>🎓 Library Collection - Education</h2>
+                </div>
+                <div class="education-list">
+                    <div class="education-item">
+                        <div class="book-icon">📚</div>
+                        <div class="education-content">
+                            <h3>Bachelor of Science in Computer Science</h3>
+                            <p class="school">University Name</p>
+                            <p class="year">2016 - 2020</p>
+                            <p class="details">Graduated Magna Cum Laude, GPA: 3.8/4.0</p>
+                        </div>
+                    </div>
+                    <div class="education-item">
+                        <div class="book-icon">🏆</div>
+                        <div class="education-content">
+                            <h3>Certifications</h3>
+                            <ul class="cert-list">
+                                <li>AWS Solutions Architect - Professional</li>
+                                <li>Google Cloud Platform - Professional Cloud Developer</li>
+                                <li>MongoDB Certified Developer Associate</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Panel -->
+            <div class="content-panel" id="projects">
+                <div class="panel-header">
+                    <h2>🏡 Crafted Items - Projects</h2>
+                </div>
+                <div class="projects-grid">
+                    <div class="project-item">
+                        <div class="project-icon ecommerce"></div>
+                        <div class="project-content">
+                            <h3>E-Commerce Platform</h3>
+                            <p class="project-description">Full-stack e-commerce solution with React, Node.js, and MongoDB</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">MongoDB</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link">🔗 Live Demo</a>
+                                <a href="#" class="project-link">📁 GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <div class="project-icon taskapp"></div>
+                        <div class="project-content">
+                            <h3>Task Management App</h3>
+                            <p class="project-description">Mobile-first task manager with real-time collaboration features</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">React Native</span>
+                                <span class="tech-tag">Firebase</span>
+                                <span class="tech-tag">Redux</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link">🔗 Live Demo</a>
+                                <a href="#" class="project-link">📁 GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <div class="project-icon aibot"></div>
+                        <div class="project-content">
+                            <h3>AI Chat Bot</h3>
+                            <p class="project-description">Intelligent chatbot using natural language processing</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">TensorFlow</span>
+                                <span class="tech-tag">Flask</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link">🔗 Live Demo</a>
+                                <a href="#" class="project-link">📁 GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Panel -->
+            <div class="content-panel" id="other">
+                <div class="panel-header">
+                    <h2>🌻 Collectibles - Other Interests</h2>
+                </div>
+                <div class="other-grid">
+                    <div class="collectible-item">
+                        <div class="collectible-icon gaming"></div>
+                        <h3>Gaming</h3>
+                        <p>Passionate about game development and indie games</p>
+                    </div>
+                    <div class="collectible-item">
+                        <div class="collectible-icon art"></div>
+                        <h3>Digital Art</h3>
+                        <p>Creating pixel art and UI designs in spare time</p>
+                    </div>
+                    <div class="collectible-item">
+                        <div class="collectible-icon running"></div>
+                        <h3>Running</h3>
+                        <p>Marathon runner and fitness enthusiast</p>
+                    </div>
+                    <div class="collectible-item">
+                        <div class="collectible-icon opensource"></div>
+                        <h3>Open Source</h3>
+                        <p>Contributing to open source projects and community</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="sparkles">✨</div>
+            <p>Made with 💚 in the Stardew Valley style</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
