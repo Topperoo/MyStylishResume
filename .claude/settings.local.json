@@ -4,7 +4,8 @@
       "WebFetch(domain:lijw07.github.io)",
       "Bash(python3:*)",
       "WebFetch(domain:stardewvalleywiki.com)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []
