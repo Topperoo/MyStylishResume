@@ -372,9 +372,122 @@ document.addEventListener('DOMContentLoaded', function() {
     
     animateOnScroll();
     
+    // Interactive Leaves System - Single Fixed Leaf
+    function initializeLeaves() {
+        const leavesContainer = document.getElementById('leavesContainer');
+        
+        // Find the main content container (middle box)
+        const contentContainer = document.querySelector('.content-container');
+        
+        if (contentContainer) {
+            const leaf = document.createElement('div');
+            leaf.className = 'leaf';
+            
+            // Get container dimensions and position
+            const containerRect = contentContainer.getBoundingClientRect();
+            
+            // Fixed position: top-right corner (adjusted for new 96px size)
+            const x = containerRect.right - 48; // 48px from right edge (half leaf inside)  
+            const y = containerRect.top - 48; // 48px above top edge (half leaf above)
+            
+            leaf.style.left = x + 'px';
+            leaf.style.top = y + 'px';
+            
+            // Fixed animation timing
+            leaf.style.animationDelay = '0s';
+            leaf.style.animationDuration = '4s';
+            
+            // Click event for petal explosion
+            leaf.addEventListener('click', function(e) {
+                createPetalExplosion(leaf); // Pass the leaf element instead of coordinates
+                
+                // Add shake animation
+                leaf.classList.add('clicked');
+                setTimeout(() => {
+                    leaf.classList.remove('clicked');
+                }, 300);
+            });
+            
+            leavesContainer.appendChild(leaf);
+        }
+    }
+    
+    // Petal particle explosion system using real falling leaf images
+    function createPetalExplosion(leafElement) {
+        const petalCount = 8 + Math.floor(Math.random() * 5); // 8-12 petals (reduced from 15-25)
+        const petalTypes = ['type1', 'type2', 'type3', 'type4']; // 4 different falling leaf types
+        
+        // Get the center position of the leaf element
+        const leafRect = leafElement.getBoundingClientRect();
+        const centerX = leafRect.left + leafRect.width / 2;
+        const centerY = leafRect.top + leafRect.height / 2; // Center of leaf spawner
+        
+        for (let i = 0; i < petalCount; i++) {
+            const petal = document.createElement('div');
+            petal.className = `petal ${petalTypes[Math.floor(Math.random() * petalTypes.length)]}`;
+            
+            // Position inside the leaf texture at center with small random spread
+            const spreadX = (Math.random() - 0.5) * 20; // Random spread of 20px
+            const spreadY = (Math.random() - 0.5) * 20; // Random spread in Y direction too
+            petal.style.left = (centerX - 12 + spreadX) + 'px'; // 12 = half of 24px petal width + spread
+            petal.style.top = (centerY - 12 + spreadY) + 'px'; // Start at center of leaf + small offset
+            
+            // Enhanced physics with wind effects and variable fall distances
+            const hasWindEffect = Math.random() < 0.3; // 30% chance of wind effect
+            const fallDistance = 300 + Math.random() * 400; // Random fall distance: 300-700px
+            
+            let driftDistance, fallDuration, windAnimation;
+            
+            if (hasWindEffect) {
+                // Wind effect: stronger horizontal movement, slower fall
+                driftDistance = (Math.random() - 0.5) * 400 + (Math.random() > 0.5 ? 150 : -150); // Strong sideways drift
+                fallDuration = 4 + Math.random() * 3; // 4-7 seconds (slower for smoother motion)
+                windAnimation = 'petalWindFallVariable';
+            } else {
+                // Normal fall with light drift
+                driftDistance = (Math.random() - 0.5) * 150; // -75 to 75px horizontal drift
+                fallDuration = 3 + Math.random() * 2; // 3-5 seconds (increased for smoother motion)
+                windAnimation = 'petalFallVariable';
+            }
+            
+            const rotation = Math.random() * 720 - 360; // -360 to 360 degrees
+            const delay = i * 0.02; // Staggered delay: 0s, 0.02s, 0.04s, etc. (removes random delay)
+            
+            // Set CSS custom properties for animation
+            petal.style.setProperty('--drift', driftDistance + 'px');
+            petal.style.setProperty('--rotation', rotation + 'deg');
+            petal.style.setProperty('--fall-distance', fallDistance + 'px');
+            petal.style.animation = `${windAnimation} ${fallDuration}s linear ${delay}s forwards`;
+            
+            document.body.appendChild(petal);
+            
+            // Remove petal after animation
+            setTimeout(() => {
+                if (petal.parentNode) {
+                    petal.parentNode.removeChild(petal);
+                }
+            }, (fallDuration + delay + 0.1) * 1000);
+        }
+    }
+    
+    // Initialize leaves system
+    initializeLeaves();
+    
+    // Reinitialize leaves on window resize
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            const leavesContainer = document.getElementById('leavesContainer');
+            leavesContainer.innerHTML = '';
+            initializeLeaves();
+        }, 500);
+    });
+
     // Add console message for developers
     console.log('🌾 Welcome to the Stardew Valley Resume! 🌾');
     console.log('Made with 💚 and pixel-perfect attention to detail.');
+    console.log('🍃 Click on the leaves for a magical surprise! 🍃');
 });
 
 // Utility functions for future enhancements
