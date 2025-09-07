@@ -1,13 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Real-time clock functionality
+    // Real-time clock functionality (time only)
     function updateClock() {
         const now = new Date();
-        
-        // Format day and date
-        const days = ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'];
-        const dayName = days[now.getDay()];
-        const day = now.getDate();
-        const dateString = `${dayName} ${day}`;
         
         // Format time (12-hour format like in Stardew Valley)
         let hours = now.getHours();
@@ -17,14 +11,54 @@ document.addEventListener('DOMContentLoaded', function() {
         hours = hours ? hours : 12;
         const timeString = `${hours}:${minutes} ${ampm}`;
         
-        // Update DOM elements
-        document.getElementById('clockDate').textContent = dateString;
+        // Update time only
         document.getElementById('clockTime').textContent = timeString;
     }
     
-    // Update clock immediately and then every second
+    // Date update function (separate from clock)
+    function updateDate() {
+        const now = new Date();
+        
+        // Format day and date
+        const days = ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'];
+        const dayName = days[now.getDay()];
+        const day = now.getDate();
+        const dateString = `${dayName} ${day}`;
+        
+        // Update date only
+        document.getElementById('clockDate').textContent = dateString;
+    }
+    
+    // Season detection function
+    function updateSeason(date) {
+        const month = date.getMonth() + 1; // JavaScript months are 0-indexed
+        const seasonImage = document.getElementById('seasonImage');
+        
+        let seasonFile = '';
+        if (month >= 3 && month <= 5) {
+            seasonFile = 'spring.png'; // Spring: March, April, May
+        } else if (month >= 6 && month <= 8) {
+            seasonFile = 'summer.png'; // Summer: June, July, August
+        } else if (month >= 9 && month <= 11) {
+            seasonFile = 'fall.png'; // Fall: September, October, November
+        } else {
+            seasonFile = 'winter.png'; // Winter: December, January, February
+        }
+        
+        seasonImage.src = `assets/images/${seasonFile}`;
+    }
+    
+    // Update time immediately and then every second
     updateClock();
     setInterval(updateClock, 1000);
+    
+    // Update date immediately and then every hour for optimization
+    updateDate();
+    setInterval(updateDate, 3600000); // 3600000ms = 1 hour
+    
+    // Update season separately every hour for optimization
+    updateSeason(new Date());
+    setInterval(() => updateSeason(new Date()), 3600000); // 3600000ms = 1 hour
     
     // Tab switching functionality
     const tabs = document.querySelectorAll('.tab');

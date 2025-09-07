@@ -129,6 +129,21 @@ body::after {
     animation: clockHandRotation 18s infinite linear;
 }
 
+/* Season Indicator */
+.season-indicator {
+    position: absolute;
+    top: 68px;
+    left: 123px;
+    width: auto;
+    height: auto;
+    transform: scale(1.065) !important;
+    transform-origin: center !important;
+    image-rendering: pixelated !important;
+    image-rendering: -moz-crisp-edges !important;
+    image-rendering: crisp-edges !important;
+    z-index: 1000;
+}
+
 @keyframes clockHandRotation {
     0% {
         transform: rotate(0deg) scale(1);
