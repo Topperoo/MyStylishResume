@@ -134,9 +134,24 @@ body::after {
     position: absolute;
     top: 68px;
     left: 123px;
-    width: auto;
-    height: auto;
+    width: 32px;
+    height: 32px;
     transform: scale(1.065) !important;
+    transform-origin: center !important;
+    image-rendering: pixelated !important;
+    image-rendering: -moz-crisp-edges !important;
+    image-rendering: crisp-edges !important;
+    z-index: 1000;
+}
+
+/* Weather Indicator */
+.weather-indicator {
+    position: absolute;
+    top: 69px;
+    left: 227px;
+    width: 32px;
+    height: 32px;
+    transform: scale(1.4) !important;
     transform-origin: center !important;
     image-rendering: pixelated !important;
     image-rendering: -moz-crisp-edges !important;

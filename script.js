@@ -48,6 +48,80 @@ document.addEventListener('DOMContentLoaded', function() {
         seasonImage.src = `assets/images/${seasonFile}`;
     }
     
+    // Weather update function for Moscow
+    async function updateWeather() {
+        try {
+            // Using OpenWeatherMap API (free tier)
+            const API_KEY = 'demo'; // In production, this should be a real API key
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Moscow,RU&appid=${API_KEY}&units=metric`);
+            
+            if (!response.ok) {
+                // Fallback to mock weather data if API fails
+                setMockWeather();
+                return;
+            }
+            
+            const data = await response.json();
+            const weatherCondition = data.weather[0].main.toLowerCase();
+            const currentMonth = new Date().getMonth() + 1;
+            
+            updateWeatherIcon(weatherCondition, currentMonth);
+        } catch (error) {
+            console.log('Weather API unavailable, using mock data');
+            setMockWeather();
+        }
+    }
+    
+    // Mock weather function for demo purposes
+    function setMockWeather() {
+        const currentMonth = new Date().getMonth() + 1;
+        const hour = new Date().getHours();
+        
+        // Simple mock logic based on time and season
+        let mockCondition = 'clear';
+        if (hour >= 18 || hour <= 6) {
+            mockCondition = Math.random() > 0.7 ? 'rain' : 'clear';
+        } else if (currentMonth >= 11 || currentMonth <= 2) {
+            mockCondition = Math.random() > 0.5 ? 'clouds' : 'clear';
+        }
+        
+        updateWeatherIcon(mockCondition, currentMonth);
+    }
+    
+    // Weather icon mapping function
+    function updateWeatherIcon(condition, month) {
+        const weatherImage = document.getElementById('weatherImage');
+        let weatherFile = 'Sun.png'; // default
+        
+        switch (condition) {
+            case 'rain':
+            case 'drizzle':
+                weatherFile = 'Rain.png';
+                break;
+            case 'thunderstorm':
+                weatherFile = 'Storm.png';
+                break;
+            case 'clouds':
+            case 'mist':
+            case 'fog':
+                // Use wind icons based on season
+                if (month >= 3 && month <= 5) {
+                    weatherFile = 'WindSpring.png'; // Spring wind
+                } else if (month >= 9 && month <= 11) {
+                    weatherFile = 'WindFall.png'; // Fall wind
+                } else {
+                    weatherFile = 'Sun.png'; // Default for other seasons
+                }
+                break;
+            case 'clear':
+            default:
+                weatherFile = 'Sun.png';
+                break;
+        }
+        
+        weatherImage.src = `assets/images/${weatherFile}`;
+    }
+    
     // Update time immediately and then every second
     updateClock();
     setInterval(updateClock, 1000);
@@ -59,6 +133,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update season separately every hour for optimization
     updateSeason(new Date());
     setInterval(() => updateSeason(new Date()), 3600000); // 3600000ms = 1 hour
+    
+    // Update weather immediately and then every 30 minutes
+    updateWeather();
+    setInterval(updateWeather, 1800000); // 1800000ms = 30 minutes
     
     // Tab switching functionality
     const tabs = document.querySelectorAll('.tab');
