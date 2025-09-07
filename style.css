@@ -66,8 +66,8 @@ body::after {
 /* Stardew Valley Clock Widget */
 .stardew-clock {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 15px;
+    right: 100px;
     z-index: 1000;
 }
 
@@ -77,37 +77,18 @@ body::after {
     image-rendering: crisp-edges;
     width: auto;
     height: auto;
+    transform: scale(1.4);
+    transform-origin: top left;
 }
 
-/* Cover the existing date text "Mon. 1" */
-.stardew-clock::before {
-    content: '';
-    position: absolute;
-    top: 20px;
-    left: 108px;
-    width: 156px;
-    height: 35px;
-    background-color: #E6C08A;
-}
-
-/* Cover the existing time text "6:50 am" */
-.stardew-clock::after {
-    content: '';
-    position: absolute;
-    top: 110px;
-    left: 108px;
-    width: 156px;
-    height: 35px;
-    background-color: #E6C08A;
-}
 
 /* Live date text overlay */
 .clock-date {
     position: absolute;
-    top: 20px;
-    left: 108px;
-    width: 156px;
-    height: 35px;
+    top: 29px;
+    left: 135px;
+    width: 120px;
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -120,17 +101,47 @@ body::after {
 /* Live time text overlay */
 .clock-time {
     position: absolute;
-    top: 110px;
-    left: 108px;
-    width: 156px;
-    height: 35px;
+    top: 125px;
+    left: 135px;
+    width: 120px;
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Press Start 2P', cursive;
-    font-size: 16px;
+    font-size: 15px;
     color: #2F1B14;
     z-index: 1002;
+}
+
+/* Clock Hand */
+.clock-hand {
+    position: absolute;
+    top: 6px;
+    left: 17px;
+    width: 20px;
+    height: 40px;
+    transform-origin: 50% calc(50% + 2px) !important;
+    image-rendering: pixelated !important;
+    image-rendering: -moz-crisp-edges !important;
+    image-rendering: crisp-edges !important;
+    z-index: 1001;
+    animation: clockHandRotation 18s infinite linear;
+}
+
+@keyframes clockHandRotation {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    33.33% {
+        transform: rotate(90deg) scale(1);
+    }
+    66.66% {
+        transform: rotate(180deg) scale(1);
+    }
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
 }
 
 /* Floating Butterflies */
@@ -317,7 +328,7 @@ body::after {
 
 .character-title {
     color: #FFE4B5;
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: 20px;
     text-shadow: 1px 1px 0px #2F1B14;
 }
@@ -687,7 +698,7 @@ body::after {
 
 .experience-content h3 {
     color: #FFF8DC;
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: 5px;
 }
 
@@ -874,7 +885,7 @@ body::after {
 
 .project-content h3 {
     color: #FFF8DC;
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: 8px;
     text-align: center;
 }
