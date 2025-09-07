@@ -484,10 +484,55 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 500);
     });
 
+    // Interactive butterfly color changing
+    function initializeButterflyColorChanger() {
+        const butterfly3 = document.querySelector('.butterfly-3');
+        let currentColor = 1;
+        const totalColors = 6;
+        
+        console.log('Butterfly3 element found:', butterfly3); // Debug log
+        
+        if (butterfly3) {
+            // Set initial color class
+            butterfly3.classList.add('color-1');
+            
+            // Add click event listener
+            butterfly3.addEventListener('click', function(e) {
+                console.log('Butterfly clicked!', currentColor); // Debug log
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Remove current color class
+                butterfly3.classList.remove(`color-${currentColor}`);
+                
+                // Cycle to next color
+                currentColor = (currentColor % totalColors) + 1;
+                
+                // Add new color class
+                butterfly3.classList.add(`color-${currentColor}`);
+                console.log('Changed to color:', currentColor); // Debug log
+                
+                // Add a small bounce effect on click
+                butterfly3.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    butterfly3.style.transform = '';
+                }, 150);
+            });
+            
+            console.log('Click listener added to butterfly'); // Debug log
+        } else {
+            console.log('Butterfly3 not found!'); // Debug log
+        }
+    }
+    
+    // Initialize butterfly color changer
+    initializeButterflyColorChanger();
+
     // Add console message for developers
     console.log('🌾 Welcome to the Stardew Valley Resume! 🌾');
     console.log('Made with 💚 and pixel-perfect attention to detail.');
     console.log('🍃 Click on the leaves for a magical surprise! 🍃');
+    console.log('🦋 Click on the pink butterfly to change its color! 🦋');
 });
 
 // Utility functions for future enhancements
