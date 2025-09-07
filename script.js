@@ -48,12 +48,12 @@ document.addEventListener('DOMContentLoaded', function() {
         seasonImage.src = `assets/images/${seasonFile}`;
     }
     
-    // Weather update function for Moscow
+    // Weather update function for Moscow using Open-Meteo API
     async function updateWeather() {
         try {
-            // Using OpenWeatherMap API (free tier)
-            const API_KEY = 'demo'; // In production, this should be a real API key
-            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Moscow,RU&appid=${API_KEY}&units=metric`);
+            // Using Open-Meteo API (completely free, no API key needed)
+            // Moscow coordinates: 55.7558°N, 37.6176°E
+            const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=55.7558&longitude=37.6176&current_weather=true');
             
             if (!response.ok) {
                 // Fallback to mock weather data if API fails
@@ -62,10 +62,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             const data = await response.json();
-            const weatherCondition = data.weather[0].main.toLowerCase();
+            const weatherCode = data.current_weather.weathercode;
             const currentMonth = new Date().getMonth() + 1;
             
-            updateWeatherIcon(weatherCondition, currentMonth);
+            updateWeatherIconFromCode(weatherCode, currentMonth);
         } catch (error) {
             console.log('Weather API unavailable, using mock data');
             setMockWeather();
@@ -88,7 +88,59 @@ document.addEventListener('DOMContentLoaded', function() {
         updateWeatherIcon(mockCondition, currentMonth);
     }
     
-    // Weather icon mapping function
+    // Weather icon mapping function for Open-Meteo weather codes
+    function updateWeatherIconFromCode(weatherCode, month) {
+        const weatherImage = document.getElementById('weatherImage');
+        let weatherFile = 'Sun.png'; // default
+        
+        // Open-Meteo weather codes: https://open-meteo.com/en/docs
+        if (weatherCode >= 0 && weatherCode <= 3) {
+            // 0: Clear sky, 1: Mainly clear, 2: Partly cloudy, 3: Overcast
+            if (weatherCode === 0 || weatherCode === 1) {
+                weatherFile = 'Sun.png'; // Clear/mainly clear
+            } else {
+                // Partly cloudy/overcast - use wind icons based on season
+                if (month >= 3 && month <= 5) {
+                    weatherFile = 'WindSpring.png'; // Spring wind
+                } else if (month >= 9 && month <= 11) {
+                    weatherFile = 'WindFall.png'; // Fall wind
+                } else {
+                    weatherFile = 'Sun.png'; // Default for other seasons
+                }
+            }
+        } else if (weatherCode >= 45 && weatherCode <= 48) {
+            // 45: Fog, 46: Depositing rime fog, 48: Depositing rime fog
+            if (month >= 3 && month <= 5) {
+                weatherFile = 'WindSpring.png'; // Spring wind
+            } else if (month >= 9 && month <= 11) {
+                weatherFile = 'WindFall.png'; // Fall wind
+            } else {
+                weatherFile = 'Sun.png';
+            }
+        } else if (weatherCode >= 51 && weatherCode <= 67) {
+            // 51-67: Various types of rain (drizzle, rain, freezing rain)
+            weatherFile = 'Rain.png';
+        } else if (weatherCode >= 71 && weatherCode <= 77) {
+            // 71-77: Snow fall
+            weatherFile = 'Rain.png'; // Use rain icon for snow
+        } else if (weatherCode >= 80 && weatherCode <= 82) {
+            // 80-82: Rain showers
+            weatherFile = 'Rain.png';
+        } else if (weatherCode >= 85 && weatherCode <= 86) {
+            // 85-86: Snow showers
+            weatherFile = 'Rain.png'; // Use rain icon for snow
+        } else if (weatherCode >= 95 && weatherCode <= 99) {
+            // 95-99: Thunderstorms
+            weatherFile = 'Storm.png';
+        } else {
+            // Default for any unhandled codes
+            weatherFile = 'Sun.png';
+        }
+        
+        weatherImage.src = `assets/images/${weatherFile}`;
+    }
+    
+    // Keep the old function for mock weather compatibility
     function updateWeatherIcon(condition, month) {
         const weatherImage = document.getElementById('weatherImage');
         let weatherFile = 'Sun.png'; // default
