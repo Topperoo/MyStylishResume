@@ -229,9 +229,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetPanel = this.getAttribute('data-tab');
             if (!targetPanel) return;
             
-            // Deactivate all tabs and panels
-            tabs.forEach(t => t.classList.remove('active'));
-            panels.forEach(p => p.classList.remove('active'));
+            // Deactivate all tabs and panels with complete state reset
+            document.querySelectorAll('.tab').forEach(t => {
+                t.classList.remove('active');
+                t.style.transform = ''; // Clear any transform styles
+                t.style.animation = ''; // Clear any animations
+                t.style.background = ''; // Reset background
+                t.style.boxShadow = ''; // Reset box shadow
+                t.blur(); // Remove focus to clear :active pseudo-class
+            });
+            document.querySelectorAll('.content-panel').forEach(p => {
+                p.classList.remove('active');
+            });
             
             // Activate selected tab and corresponding panel
             this.classList.add('active');
