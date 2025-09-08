@@ -428,19 +428,6 @@ body::after {
     transform: scale(1.2) rotate(5deg);
 }
 
-.contact-icon {
-    width: 16px;
-    height: 16px;
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
-    transition: transform 0.3s ease;
-}
-
-.contact-item:hover .contact-icon {
-    transform: scale(1.2) rotate(5deg);
-}
-
 .contact-item a {
     color: #87CEEB;
     text-decoration: none;
