@@ -334,12 +334,15 @@ body::after {
     border: 2px solid #CD853F;
     border-radius: 8px;
     pointer-events: none;
+    z-index: 1;
 }
 
 .character-portrait {
     display: flex;
     align-items: center;
     gap: 30px;
+    position: relative;
+    overflow: hidden;
 }
 
 .pixel-avatar {
@@ -355,6 +358,22 @@ body::after {
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.pixel-avatar:hover {
+    transform: scale(1.05) rotate(2deg);
+    border-color: #DAA520;
+    box-shadow: 
+        0 0 20px rgba(218, 165, 32, 0.6),
+        inset 1px 1px 0px rgba(255,255,255,0.2);
+    animation: avatarGlow 0.5s ease-in-out;
+}
+
+@keyframes avatarGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(218, 165, 32, 0.6); }
+    50% { box-shadow: 0 0 30px rgba(218, 165, 32, 0.8); }
 }
 
 .character-info {
@@ -387,21 +406,98 @@ body::after {
     gap: 12px;
     color: #FFF8DC;
     font-size: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.contact-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 .contact-item .icon {
     width: 16px;
     text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.contact-item:hover .icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.contact-icon {
+    width: 16px;
+    height: 16px;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    transition: transform 0.3s ease;
+}
+
+.contact-item:hover .contact-icon {
+    transform: scale(1.2) rotate(5deg);
 }
 
 .contact-item a {
     color: #87CEEB;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: all 0.3s ease;
 }
 
 .contact-item a:hover {
     color: #FFE4B5;
+    text-shadow: 0 0 8px rgba(255, 228, 181, 0.6);
+}
+
+/* Copy to clipboard button */
+.copy-btn {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 14px;
+    padding: 0;
+    margin-left: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.copy-btn:hover {
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+.copy-btn:active {
+    transform: scale(1.1);
+}
+
+/* Copy notification */
+.copy-notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50px);
+    background: linear-gradient(145deg, #228B22, #32CD32);
+    color: #F0FFF0;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-family: 'Press Start 2P', cursive;
+    box-shadow: 
+        inset 1px 1px 0px rgba(255,255,255,0.2),
+        0 4px 12px rgba(0,0,0,0.3);
+    border: 2px solid #006400;
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.copy-notification.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 /* Menu Tabs */
@@ -440,11 +536,29 @@ body::after {
 }
 
 .tab:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     box-shadow: 
         inset 1px 1px 0px #F4E1BB,
         inset -1px -1px 0px #D4A574,
-        0 4px 8px rgba(0,0,0,0.3);
+        0 6px 12px rgba(0,0,0,0.4),
+        0 0 20px rgba(218, 165, 32, 0.3);
+    background: linear-gradient(145deg, #DEB887, #F4A460);
+    animation: tabGlow 0.3s ease-in-out;
+}
+
+.tab:active {
+    transform: translateY(1px);
+    box-shadow: 
+        inset 2px 2px 4px rgba(0,0,0,0.3),
+        inset 1px 1px 0px #D4A574,
+        inset -1px -1px 0px #F4E1BB;
+    background: linear-gradient(145deg, #CD853F, #DEB887);
+}
+
+@keyframes tabGlow {
+    0% { box-shadow: inset 1px 1px 0px #F4E1BB, inset -1px -1px 0px #D4A574, 0 2px 4px rgba(0,0,0,0.2); }
+    50% { box-shadow: inset 1px 1px 0px #F4E1BB, inset -1px -1px 0px #D4A574, 0 8px 16px rgba(0,0,0,0.5), 0 0 25px rgba(218, 165, 32, 0.4); }
+    100% { box-shadow: inset 1px 1px 0px #F4E1BB, inset -1px -1px 0px #D4A574, 0 6px 12px rgba(0,0,0,0.4), 0 0 20px rgba(218, 165, 32, 0.3); }
 }
 
 .tab.active {
@@ -567,6 +681,23 @@ body::after {
     position: relative;
     flex-shrink: 0;
     image-rendering: pixelated;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.skill-icon:hover {
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: 
+        0 8px 16px rgba(0,0,0,0.4),
+        inset 1px 1px 0px rgba(255,255,255,0.3);
+    animation: skillBounce 0.6s ease-in-out;
+}
+
+@keyframes skillBounce {
+    0%, 100% { transform: translateY(-4px) scale(1.1); }
+    25% { transform: translateY(-6px) scale(1.15); }
+    50% { transform: translateY(-2px) scale(1.08); }
+    75% { transform: translateY(-5px) scale(1.12); }
 }
 
 /* Frontend Development - Pickaxe Icon */
@@ -632,6 +763,39 @@ body::after {
     border-radius: 50% 20% 50% 20%;
 }
 
+/* Algorithms & Math - Brain/Scroll Icon */
+.skill-icon.algorithms {
+    background: linear-gradient(135deg, #9370DB, #8A2BE2);
+}
+.skill-icon.algorithms::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 6px;
+    width: 20px;
+    height: 24px;
+    background: 
+        radial-gradient(ellipse 8px 6px at center 8px, #FFF8DC 0%, #FFF8DC 80%, transparent 80%),
+        linear-gradient(180deg, #8B4513 0%, #8B4513 15%, #FFF8DC 15%, #FFF8DC 85%, #8B4513 85%);
+    border-radius: 2px;
+}
+
+/* C++ Programming - Code Icon */
+.skill-icon.cpp {
+    background: linear-gradient(135deg, #FF6347, #DC143C);
+}
+.skill-icon.cpp::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 20px;
+    height: 20px;
+    background: 
+        linear-gradient(45deg, #FFF8DC 0%, #FFF8DC 30%, transparent 30%, transparent 40%, #FFF8DC 40%, #FFF8DC 60%, transparent 60%, transparent 70%, #FFF8DC 70%);
+    clip-path: polygon(10% 20%, 90% 20%, 90% 30%, 20% 30%, 20% 50%, 80% 50%, 80% 60%, 10% 60%, 10% 80%, 90% 80%, 90% 90%, 10% 90%);
+}
+
 .skill-info {
     flex: 1;
 }
@@ -653,21 +817,84 @@ body::after {
 
 .skill-progress {
     height: 100%;
-    background: linear-gradient(90deg, #32CD32, #228B22);
     border-radius: 4px;
     transition: width 0.5s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-.skill-progress[data-level="10"] { width: 100%; }
-.skill-progress[data-level="9"] { width: 90%; }
-.skill-progress[data-level="8"] { width: 80%; }
-.skill-progress[data-level="7"] { width: 70%; }
-.skill-progress[data-level="6"] { width: 60%; }
-.skill-progress[data-level="5"] { width: 50%; }
-.skill-progress[data-level="4"] { width: 40%; }
-.skill-progress[data-level="3"] { width: 30%; }
-.skill-progress[data-level="2"] { width: 20%; }
-.skill-progress[data-level="1"] { width: 10%; }
+/* Green gradient for levels 8-10 (Expert) */
+.skill-progress[data-level="10"] { 
+    width: 100%; 
+    background: linear-gradient(90deg, #32CD32, #00FF00, #228B22);
+    box-shadow: 0 0 8px rgba(50, 205, 50, 0.6);
+}
+.skill-progress[data-level="9"] { 
+    width: 90%; 
+    background: linear-gradient(90deg, #32CD32, #00FF00, #228B22);
+    box-shadow: 0 0 6px rgba(50, 205, 50, 0.5);
+}
+.skill-progress[data-level="8"] { 
+    width: 80%; 
+    background: linear-gradient(90deg, #228B22, #32CD32, #00FF32);
+    box-shadow: 0 0 4px rgba(50, 205, 50, 0.4);
+}
+
+/* Yellow gradient for levels 5-7 (Intermediate) */
+.skill-progress[data-level="7"] { 
+    width: 70%; 
+    background: linear-gradient(90deg, #FFD700, #FFA500, #FF8C00);
+    box-shadow: 0 0 4px rgba(255, 215, 0, 0.4);
+}
+.skill-progress[data-level="6"] { 
+    width: 60%; 
+    background: linear-gradient(90deg, #FFA500, #FFD700, #FFFF00);
+    box-shadow: 0 0 4px rgba(255, 165, 0, 0.4);
+}
+.skill-progress[data-level="5"] { 
+    width: 50%; 
+    background: linear-gradient(90deg, #FF8C00, #FFA500, #FFD700);
+    box-shadow: 0 0 4px rgba(255, 140, 0, 0.4);
+}
+
+/* Red gradient for levels 1-4 (Beginner) */
+.skill-progress[data-level="4"] { 
+    width: 40%; 
+    background: linear-gradient(90deg, #FF6347, #FF4500, #DC143C);
+    box-shadow: 0 0 4px rgba(255, 99, 71, 0.4);
+}
+.skill-progress[data-level="3"] { 
+    width: 30%; 
+    background: linear-gradient(90deg, #FF4500, #FF6347, #FF0000);
+    box-shadow: 0 0 4px rgba(255, 69, 0, 0.4);
+}
+.skill-progress[data-level="2"] { 
+    width: 20%; 
+    background: linear-gradient(90deg, #DC143C, #FF4500, #FF6347);
+    box-shadow: 0 0 4px rgba(220, 20, 60, 0.4);
+}
+.skill-progress[data-level="1"] { 
+    width: 10%; 
+    background: linear-gradient(90deg, #8B0000, #DC143C, #FF4500);
+    box-shadow: 0 0 4px rgba(139, 0, 0, 0.4);
+}
+
+/* Animated shimmer effect for all skill bars */
+.skill-progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: skillShimmer 2s ease-in-out infinite;
+}
+
+@keyframes skillShimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
 
 .skill-level {
     color: #FFE4B5;
@@ -854,11 +1081,44 @@ body::after {
     border-radius: 8px;
     padding: 20px;
     box-shadow: inset 1px 1px 0px #CD853F;
-    transition: transform 0.2s;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-item::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #FFD700, #FFA500, #FF6347, #32CD32, #87CEEB, #DDA0DD);
+    background-size: 400% 400%;
+    border-radius: 10px;
+    opacity: 0;
+    z-index: -1;
+    animation: gradientShift 3s ease infinite;
+    transition: opacity 0.4s ease;
 }
 
 .project-item:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 
+        inset 1px 1px 0px #CD853F,
+        0 8px 25px rgba(255, 215, 0, 0.4),
+        0 0 30px rgba(255, 215, 0, 0.2);
+}
+
+.project-item:hover::before {
+    opacity: 1;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* Stardew Valley Project Icons */
@@ -872,11 +1132,28 @@ body::after {
     image-rendering: pixelated;
 }
 
-/* E-Commerce Platform - Merchant Icon */
-.project-icon.ecommerce {
-    background: linear-gradient(135deg, #FFD700, #FFA500);
+/* Quirk - Complex Task Icon */
+.project-icon.quirk {
+    background: linear-gradient(135deg, #9370DB, #8A2BE2);
 }
-.project-icon.ecommerce::after {
+.project-icon.quirk::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 36px;
+    height: 36px;
+    background: 
+        linear-gradient(45deg, #FFF8DC 0%, #FFF8DC 30%, transparent 30%, transparent 70%, #FFF8DC 70%),
+        linear-gradient(-45deg, #FFF8DC 0%, #FFF8DC 30%, transparent 30%, transparent 70%, #FFF8DC 70%);
+    border-radius: 4px;
+}
+
+/* Portfolio Website - Pixel Art Icon */
+.project-icon.portfolio {
+    background: linear-gradient(135deg, #FFD700, #FF6347);
+}
+.project-icon.portfolio::after {
     content: '';
     position: absolute;
     top: 8px;
@@ -884,42 +1161,26 @@ body::after {
     width: 32px;
     height: 32px;
     background: 
-        radial-gradient(circle at 50% 30%, #8B4513 25%, transparent 25%),
-        linear-gradient(0deg, #654321 60%, #8B4513 60%, #8B4513 80%, #CD853F 80%);
-    border-radius: 50% 50% 20% 20%;
-}
-
-/* Task Management App - Calendar Icon */
-.project-icon.taskapp {
-    background: linear-gradient(135deg, #87CEEB, #4682B4);
-}
-.project-icon.taskapp::after {
-    content: '';
-    position: absolute;
-    top: 6px;
-    left: 6px;
-    width: 36px;
-    height: 36px;
-    background: 
-        linear-gradient(0deg, #F0F8FF 0%, #F0F8FF 20%, #4682B4 20%, #4682B4 25%, #F0F8FF 25%),
-        repeating-linear-gradient(90deg, transparent, transparent 8px, #4682B4 8px, #4682B4 9px);
+        repeating-linear-gradient(0deg, #FFF8DC 0px, #FFF8DC 4px, transparent 4px, transparent 8px),
+        repeating-linear-gradient(90deg, #FFF8DC 0px, #FFF8DC 4px, transparent 4px, transparent 8px);
     border-radius: 2px;
 }
 
-/* AI Chat Bot - Junimo Icon */
-.project-icon.aibot {
-    background: linear-gradient(135deg, #32CD32, #228B22);
+/* Algorithms - Scroll/Code Icon (reusing from skills) */
+.project-icon.algorithms {
+    background: linear-gradient(135deg, #DC143C, #B22222);
 }
-.project-icon.aibot::after {
+.project-icon.algorithms::after {
     content: '';
     position: absolute;
     top: 6px;
-    left: 6px;
-    width: 36px;
+    left: 8px;
+    width: 32px;
     height: 36px;
     background: 
-        radial-gradient(circle at 50% 40%, #ADFF2F 30%, #32CD32 50%, #228B22 70%);
-    border-radius: 50% 50% 40% 40%;
+        linear-gradient(45deg, #FFF8DC 0%, #FFF8DC 25%, transparent 25%, transparent 50%, #FFF8DC 50%, #FFF8DC 75%, transparent 75%),
+        linear-gradient(90deg, #654321 0%, #654321 15%, #FFF8DC 15%, #FFF8DC 85%, #654321 85%);
+    border-radius: 2px;
     box-shadow: 
         inset -2px -2px 0px rgba(0,0,0,0.2),
         inset 2px 2px 0px rgba(255,255,255,0.3);
@@ -970,12 +1231,32 @@ body::after {
     padding: 6px 12px;
     border: 1px solid #87CEEB;
     border-radius: 4px;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(135, 206, 235, 0.4), transparent);
+    transition: left 0.5s ease;
 }
 
 .project-link:hover {
     background: #87CEEB;
     color: #2F1B14;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(135, 206, 235, 0.4);
+    border-color: #B0E0E6;
+}
+
+.project-link:hover::before {
+    left: 100%;
 }
 
 /* Other/Collectibles Styles */
@@ -992,11 +1273,29 @@ body::after {
     padding: 20px;
     text-align: center;
     box-shadow: inset 1px 1px 0px #CD853F;
-    transition: transform 0.2s;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
 }
 
 .collectible-item:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px) rotate(1deg);
+    box-shadow: 
+        inset 1px 1px 0px #CD853F,
+        0 8px 20px rgba(0,0,0,0.3),
+        0 0 30px rgba(255, 215, 0, 0.2);
+    background: linear-gradient(145deg, #8B4513, #A0522D);
+    border-color: #DAA520;
+}
+
+.collectible-item:hover .collectible-icon {
+    transform: scale(1.1);
+    animation: collectiblePulse 0.6s ease-in-out;
+}
+
+@keyframes collectiblePulse {
+    0%, 100% { transform: scale(1.1); }
+    50% { transform: scale(1.2); }
 }
 
 /* Stardew Valley Collectible Icons */
@@ -1008,6 +1307,7 @@ body::after {
     position: relative;
     margin: 0 auto 10px auto;
     image-rendering: pixelated;
+    transition: all 0.3s ease;
 }
 
 /* Gaming - Controller/Joystick Icon */
@@ -1026,11 +1326,11 @@ body::after {
     border-radius: 40% 40% 60% 60%;
 }
 
-/* Digital Art - Paintbrush Icon */
-.collectible-icon.art {
+/* Drawing - Pencil Icon */
+.collectible-icon.drawing {
     background: linear-gradient(135deg, #FF69B4, #FF1493);
 }
-.collectible-icon.art::after {
+.collectible-icon.drawing::after {
     content: '';
     position: absolute;
     top: 4px;
@@ -1038,39 +1338,45 @@ body::after {
     width: 20px;
     height: 32px;
     background: 
-        linear-gradient(0deg, #8B4513 0%, #8B4513 70%, #C0C0C0 70%, #C0C0C0 80%, #FFD700 80%);
-    border-radius: 2px 2px 10px 10px;
+        linear-gradient(0deg, #8B4513 0%, #8B4513 70%, #FFD700 70%, #FFD700 85%, #C0C0C0 85%);
+    border-radius: 2px 2px 8px 8px;
 }
 
-/* Running - Shoe Icon */
-.collectible-icon.running {
+/* Calisthenics - Muscle/Strength Icon */
+.collectible-icon.calisthenics {
     background: linear-gradient(135deg, #20B2AA, #008B8B);
 }
-.collectible-icon.running::after {
+.collectible-icon.calisthenics::after {
     content: '';
     position: absolute;
-    top: 12px;
-    left: 6px;
-    width: 28px;
-    height: 16px;
+    top: 8px;
+    left: 8px;
+    width: 24px;
+    height: 24px;
     background: 
-        linear-gradient(45deg, #2F4F4F 0%, #2F4F4F 60%, #F0F0F0 60%);
-    border-radius: 50% 20% 40% 80%;
+        radial-gradient(circle at 30% 30%, #2F4F4F 25%, transparent 25%),
+        radial-gradient(circle at 70% 30%, #2F4F4F 25%, transparent 25%),
+        linear-gradient(45deg, #2F4F4F 30%, transparent 30%, transparent 70%, #2F4F4F 70%);
+    border-radius: 2px;
 }
 
-/* Open Source - Heart Icon */
-.collectible-icon.opensource {
-    background: linear-gradient(135deg, #FF6347, #FF4500);
+/* D&D - Dice Icon */
+.collectible-icon.dnd {
+    background: linear-gradient(135deg, #8B4513, #A0522D);
 }
-.collectible-icon.opensource::after {
-    content: '♥';
+.collectible-icon.dnd::after {
+    content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #FFF8DC;
-    font-size: 20px;
-    text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+    top: 8px;
+    left: 8px;
+    width: 24px;
+    height: 24px;
+    background: 
+        radial-gradient(circle at 33% 33%, #FFF8DC 12%, transparent 12%),
+        radial-gradient(circle at 67% 67%, #FFF8DC 12%, transparent 12%),
+        radial-gradient(circle at 50% 50%, #FFF8DC 12%, transparent 12%),
+        linear-gradient(135deg, #654321, #8B4513);
+    border-radius: 3px;
 }
 
 .collectible-item h3 {
@@ -1366,3 +1672,9 @@ body::after {
         scale: 0.3;
     }
 }
+
+
+
+
+
+

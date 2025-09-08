@@ -481,6 +481,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const leavesContainer = document.getElementById('leavesContainer');
             leavesContainer.innerHTML = '';
             initializeLeaves();
+            
         }, 500);
     });
 
@@ -535,6 +536,8 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('🦋 Click on the pink butterfly to change its color! 🦋');
 });
 
+
+
 // Utility functions for future enhancements
 function playClickSound() {
     // Placeholder for click sound effect
@@ -546,10 +549,55 @@ function addParticleEffect(element) {
     // Could add floating hearts, stars, or sparkles
 }
 
+// Copy to clipboard functionality
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        // Success feedback
+        showCopyNotification('Copied to clipboard!');
+    }).catch(function(err) {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            showCopyNotification('Copied to clipboard!');
+        } catch (err) {
+            showCopyNotification('Copy failed');
+        }
+        document.body.removeChild(textArea);
+    });
+}
+
+// Show copy notification
+function showCopyNotification(message) {
+    // Remove existing notification
+    const existing = document.querySelector('.copy-notification');
+    if (existing) existing.remove();
+    
+    // Create notification
+    const notification = document.createElement('div');
+    notification.className = 'copy-notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    // Show notification
+    setTimeout(() => notification.classList.add('show'), 10);
+    
+    // Hide and remove notification
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, 2000);
+}
+
 // Export functions for potential module use
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         playClickSound,
-        addParticleEffect
+        addParticleEffect,
+        copyToClipboard
     };
 }
