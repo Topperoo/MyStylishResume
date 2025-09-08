@@ -414,6 +414,7 @@ body::after {
     flex-wrap: wrap;
     width: 100%;
     text-align: center;
+    padding-right: 80px;
 }
 
 .contact-item {
