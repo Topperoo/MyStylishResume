@@ -666,3 +666,30 @@ function showCopyNotification(message) {
     }, 2000);
 }
 
+// Limits scrolling to content boundaries
+function limitScrollToContent() {
+    const gameContainer = document.querySelector('.game-container');
+    const footer = document.querySelector('.footer');
+    
+    if (!gameContainer || !footer) return;
+    
+    // Calculate maximum scroll position
+    const footerRect = footer.getBoundingClientRect();
+    const gameContainerRect = gameContainer.getBoundingClientRect();
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    
+    // Limit scroll based on content height
+    const contentHeight = gameContainerRect.height + parseInt(getComputedStyle(gameContainer).marginTop) + parseInt(getComputedStyle(gameContainer).marginBottom);
+    const maxAllowedScroll = Math.max(0, contentHeight - window.innerHeight + 100); // 100px buffer
+    
+    if (window.scrollY > maxAllowedScroll) {
+        window.scrollTo(0, maxAllowedScroll);
+    }
+}
+
+// Add scroll event listener
+window.addEventListener('scroll', limitScrollToContent);
+
+// Also limit on resize
+window.addEventListener('resize', limitScrollToContent);
+
