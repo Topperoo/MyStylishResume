@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const activeTab = document.querySelector('.tab.active');
         if (!activeTab) return;
         
-        const allTabs = Array.from(tabs);
+        const allTabs = Array.from(document.querySelectorAll('.tab'));
         const currentIndex = allTabs.indexOf(activeTab);
         
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
@@ -396,7 +396,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Adds custom focus styles for better accessibility
-    tabs.forEach(tab => {
+    document.querySelectorAll('.tab').forEach(tab => {
         tab.addEventListener('focus', function() {
             this.style.outline = '2px solid #87CEEB';
         });
