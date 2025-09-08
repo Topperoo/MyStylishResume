@@ -687,8 +687,11 @@ body::after {
     position: relative;
     flex-shrink: 0;
     image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
     transition: all 0.3s ease;
     cursor: pointer;
+    object-fit: cover;
 }
 
 .skill-icon:hover {
