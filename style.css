@@ -1139,6 +1139,8 @@ body::after {
     position: relative;
     margin: 0 auto 12px auto;
     image-rendering: pixelated;
+    object-fit: cover;
+    object-position: center;
 }
 
 /* Quirk - Complex Task Icon */
