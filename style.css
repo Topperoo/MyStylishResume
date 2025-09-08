@@ -1317,6 +1317,7 @@ body::after {
     margin: 0 auto 10px auto;
     image-rendering: pixelated;
     transition: all 0.3s ease;
+    object-fit: cover;
 }
 
 /* Gaming - Controller/Joystick Icon */
@@ -1808,6 +1809,12 @@ body::after {
         width: 32px;
         height: 32px;
         margin-bottom: 8px;
+    }
+    
+    .hobby-icon {
+        width: 24px;
+        height: 24px;
+        margin: 4px auto;
     }
     
     .collectible-item h3 {
