@@ -1,0 +1,17 @@
+# Local development
+.DS_Store
+*.log
+node_modules/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*~
+
+# OS generated files
+Thumbs.db

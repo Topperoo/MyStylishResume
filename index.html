@@ -2,417 +2,379 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name — Software Engineer</title>
-    <meta name="description" content="Portfolio of Your Name, focused on web development and software engineering projects.">
-    
-    <!-- JSON-LD structured data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Your Name",
-        "jobTitle": "Software Engineer",
-        "url": "https://yourwebsite.com",
-        "sameAs": [
-            "https://github.com/yourusername",
-            "https://linkedin.com/in/yourname",
-            "https://leetcode.com/yourusername",
-            "https://stackoverflow.com/users/yourid"
-        ],
-        "description": "Software Engineer focused on web development and modern technologies."
-    }
-    </script>
-    
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aleksandr Chernousov - Stardew Valley Resume</title>
+    <meta name="description" content="Aleksandr Chernousov - Computer Science Student at MIPT. Interactive pixel-art resume styled after Stardew Valley game.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="#home">Your Name</a>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#projects" class="nav-link">Projects</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#skills" class="nav-link">Skills</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
+    <!-- Clock Widget -->
+    <div class="stardew-clock">
+        <img src="assets/images/clock1.png" alt="Stardew Valley Clock">
+        <img src="assets/images/hand.png" alt="Clock Hand" class="clock-hand">
+        <img src="assets/images/spring.png" alt="Current Season" class="season-indicator" id="seasonImage">
+        <img src="assets/images/Sun.png" alt="Current Weather" class="weather-indicator" id="weatherImage">
+        <div class="clock-date" id="clockDate">Mon. 1</div>
+        <div class="clock-time" id="clockTime">12:00 pm</div>
+    </div>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">Your Name</h1>
-                <h2 class="hero-subtitle">Software Engineer</h2>
-                <p class="hero-description">
-                    Passionate about creating innovative solutions with modern web technologies. 
-                    Focused on React, Node.js & full-stack development projects.
-                </p>
-                <div class="hero-links">
-                    <a href="https://github.com/yourusername" class="hero-link" target="_blank" rel="noopener noreferrer">
-                        <span class="icon-github"></span>
-                        GitHub
-                    </a>
-                    <a href="https://linkedin.com/in/yourname" class="hero-link" target="_blank" rel="noopener noreferrer">
-                        <span class="icon-linkedin"></span>
-                        LinkedIn
-                    </a>
-                    <a href="https://leetcode.com/yourusername" class="hero-link" target="_blank" rel="noopener noreferrer">
-                        <span class="icon-leetcode"></span>
-                        LeetCode
-                    </a>
-                    <a href="https://stackoverflow.com/users/yourid" class="hero-link" target="_blank" rel="noopener noreferrer">
-                        <span class="icon-stackoverflow"></span>
-                        Stack Overflow
-                    </a>
-                </div>
-                <div class="hero-cta">
-                    <a href="#projects" class="cta-button primary">View Projects</a>
-                    <a href="#contact" class="cta-button secondary">Get in Touch</a>
-                </div>
-            </div>
-        </div>
-        <div class="hero-background">
-            <div class="forest-silhouette"></div>
-            <div class="floating-particles"></div>
-        </div>
-    </section>
+    <!-- Floating Butterflies -->
+    <div class="butterflies">
+        <img src="assets/images/butterfly.gif" alt="Butterfly" class="butterfly butterfly-1">
+        <img src="assets/images/butterfly.gif" alt="Butterfly" class="butterfly butterfly-2">
+        <img src="assets/images/butterfly.gif" alt="Butterfly" class="butterfly butterfly-3">
+        <img src="assets/images/butterfly.gif" alt="Butterfly" class="butterfly butterfly-4">
+        <img src="assets/images/butterfly.gif" alt="Butterfly" class="butterfly butterfly-5">
+        <img src="assets/images/butterfly.gif" alt="Butterfly" class="butterfly butterfly-6">
+    </div>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">About Me</h2>
-                <div class="section-divider"></div>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <p class="about-paragraph">
-                        I'm a passionate software engineer with a strong foundation in full-stack development. 
-                        My journey in technology is driven by curiosity and the desire to create meaningful solutions 
-                        that make a positive impact.
-                    </p>
-                    <p class="about-paragraph">
-                        With experience in modern web technologies, I enjoy tackling complex problems and 
-                        turning ideas into reality through clean, efficient code. I'm always eager to learn 
-                        new technologies and improve my craft.
-                    </p>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <span class="stat-number">50+</span>
-                            <span class="stat-label">Projects Completed</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">3+</span>
-                            <span class="stat-label">Years Experience</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">100+</span>
-                            <span class="stat-label">Problems Solved</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <div class="image-placeholder">
-                        <div class="tree-icon">🌲</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Interactive Leaves System -->
+    <div class="interactive-leaves" id="leavesContainer">
+        <!-- Leaves will be generated by JavaScript -->
+    </div>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Skills & Technologies</h2>
-                <div class="section-divider"></div>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3 class="category-title">Frontend</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">React</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">TypeScript</span>
-                        <span class="skill-tag">HTML5</span>
-                        <span class="skill-tag">CSS3</span>
-                        <span class="skill-tag">Tailwind CSS</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="category-title">Backend</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">Express</span>
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">Spring Boot</span>
-                        <span class="skill-tag">REST APIs</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="category-title">Database</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">MongoDB</span>
-                        <span class="skill-tag">PostgreSQL</span>
-                        <span class="skill-tag">MySQL</span>
-                        <span class="skill-tag">Redis</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="category-title">Tools & Others</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">AWS</span>
-                        <span class="skill-tag">Unity</span>
-                        <span class="skill-tag">Linux</span>
-                        <span class="skill-tag">Agile</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Featured Projects</h2>
-                <div class="section-divider"></div>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">🌐</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">E-Commerce Platform</h3>
-                        <p class="project-description">
-                            Full-stack e-commerce solution built with React and Node.js, featuring 
-                            user authentication, payment processing, and admin dashboard.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Stripe</span>
+    <div class="game-container">
+        <!-- Character Portrait Section -->
+        <div class="character-section">
+            <div class="character-portrait">
+                <div class="pixel-avatar"></div>
+                <div class="character-info">
+                    <h1 class="character-name">Aleksandr Chernousov</h1>
+                    <p class="character-title">CS Student • MIPT HSSE</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span class="icon">📧</span>
+                            <span>avc9978@gmail.com</span>
+                            <button class="copy-btn" onclick="copyToClipboard('avc9978@gmail.com')" title="Copy email">📋</button>
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">Live Demo</a>
-                            <a href="#" class="project-link">Source Code</a>
+                        <div class="contact-item">
+                            <span class="icon">🐙</span>
+                            <a href="https://github.com/Topperoo" target="_blank">GitHub/Topperoo</a>
+                            <button class="copy-btn" onclick="copyToClipboard('https://github.com/Topperoo')" title="Copy GitHub URL">📋</button>
                         </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">🎮</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Unity Game Project</h3>
-                        <p class="project-description">
-                            Interactive 3D game developed in Unity with custom scripts, 
-                            physics systems, and multiplayer functionality.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Unity</span>
-                            <span class="tech-tag">C#</span>
-                            <span class="tech-tag">Photon</span>
-                            <span class="tech-tag">3D Modeling</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">Play Game</a>
-                            <a href="#" class="project-link">Source Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">📱</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Task Management App</h3>
-                        <p class="project-description">
-                            Responsive web application for project management with real-time
-                            collaboration, drag-and-drop interface, and team features.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Spring Boot</span>
-                            <span class="tech-tag">WebSocket</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">Live Demo</a>
-                            <a href="#" class="project-link">Source Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">🧠</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">PSIOP</h3>
-                        <p class="project-description">
-                            Neural interface that helps analyze a person's emotions using
-                            advanced machine learning algorithms and real-time data processing.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Swift</span>
-                            <span class="tech-tag">Python</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">Live Demo</a>
-                            <a href="#" class="project-link">Source Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">⚙️</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Dara-pro</h3>
-                        <p class="project-description">
-                            Small-medium business automation platform streamlining workflows
-                            and processes with intelligent automation pipelines.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">N8N</span>
-                            <span class="tech-tag">Python</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">Live Demo</a>
-                            <a href="#" class="project-link">Source Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">📊</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Betting Exchange Arbitrage</h3>
-                        <p class="project-description">
-                            Automated arbitrage detection system for betting exchanges,
-                            identifying profitable opportunities across multiple markets.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">Live Demo</a>
-                            <a href="#" class="project-link">Source Code</a>
+                        <div class="contact-item">
+                            <span class="icon">📱</span>
+                            <a href="https://t.me/mipt_geeks" target="_blank">Telegram Channel</a>
+                            <button class="copy-btn" onclick="copyToClipboard('https://t.me/mipt_geeks')" title="Copy Telegram URL">📋</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Get In Touch</h2>
-                <div class="section-divider"></div>
+        <!-- Menu Tabs -->
+        <div class="menu-tabs">
+            <button class="tab active" data-tab="skills">
+                <img src="assets/images/skills-icon.png" alt="Skills" class="tab-icon-img">
+                Skills
+            </button>
+            <button class="tab" data-tab="experience">
+                <img src="assets/images/experience-icon.png" alt="Experience" class="tab-icon-img">
+                Experience
+            </button>
+            <button class="tab" data-tab="education">
+                <img src="assets/images/education-icon.png" alt="Education" class="tab-icon-img">
+                Education
+            </button>
+            <button class="tab" data-tab="projects">
+                <img src="assets/images/projects-icon.png" alt="Projects" class="tab-icon-img">
+                Projects
+            </button>
+            <button class="tab" data-tab="other">
+                <img src="assets/images/other-icon.png" alt="Other" class="tab-icon-img">
+                Other
+            </button>
+        </div>
+
+        <!-- Content Panels -->
+        <div class="content-container">
+            <!-- Skills Panel -->
+            <div class="content-panel active" id="skills">
+                <div class="panel-header">
+                    <h2><img src="assets/images/skills-icon.png" alt="Skills" class="header-icon"> Skills & Proficiency</h2>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <img src="assets/images/1.jpg" alt="Algorithms & Math" class="skill-icon">
+                        <div class="skill-info">
+                            <h3>Algorithms & Math</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="9"></div>
+                            </div>
+                            <span class="skill-level">Level 9</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <img src="assets/images/2.jpg" alt="Backend Development" class="skill-icon">
+                        <div class="skill-info">
+                            <h3>Backend Development</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="8"></div>
+                            </div>
+                            <span class="skill-level">Level 8</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <img src="assets/images/3.jpg" alt="C++ Programming" class="skill-icon">
+                        <div class="skill-info">
+                            <h3>C++ Programming</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="8"></div>
+                            </div>
+                            <span class="skill-level">Level 8</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <img src="assets/images/7.jpg" alt="Python Programming" class="skill-icon">
+                        <div class="skill-info">
+                            <h3>Python Programming</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="7"></div>
+                            </div>
+                            <span class="skill-level">Level 7</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <img src="assets/images/4.jpg" alt="DevOps & Cloud" class="skill-icon">
+                        <div class="skill-info">
+                            <h3>DevOps & Cloud</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="7"></div>
+                            </div>
+                            <span class="skill-level">Level 7</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <img src="assets/images/8.jpg" alt="English Language" class="skill-icon">
+                        <div class="skill-info">
+                            <h3>English Language</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="7"></div>
+                            </div>
+                            <span class="skill-level">Level 7</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <img src="assets/images/5.jpg" alt="Database Management" class="skill-icon">
+                        <div class="skill-info">
+                            <h3>Database Management</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="5"></div>
+                            </div>
+                            <span class="skill-level">Level 5</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <img src="assets/images/6.jpg" alt="Frontend Development" class="skill-icon">
+                        <div class="skill-info">
+                            <h3>Frontend Development</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="4"></div>
+                            </div>
+                            <span class="skill-level">Level 4</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3 class="contact-subtitle">Let's work together</h3>
-                    <p class="contact-description">
-                        I'm always interested in new opportunities and exciting projects. 
-                        Whether you have a question or just want to say hi, feel free to reach out!
-                    </p>
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <span class="contact-icon">📧</span>
-                            <div class="contact-details">
-                                <span class="contact-label">Email</span>
-                                <a href="mailto:your.email@example.com" class="contact-value">your.email@example.com</a>
+
+            <!-- Experience Panel -->
+            <div class="content-panel" id="experience">
+                <div class="panel-header">
+                    <h2><img src="assets/images/experience-icon.png" alt="Experience" class="header-icon"> Quest Log - Academic Journey</h2>
+                </div>
+                <div class="experience-list">
+                    <div class="experience-item">
+                        <div class="quest-marker senior"></div>
+                        <div class="experience-content">
+                            <h3>Computer Science Student</h3>
+                            <p class="company">MIPT HSSE • Moscow</p>
+                            <p class="duration">2024 - Present (2nd Year)</p>
+                            <ul class="achievements">
+                                <li>Maintaining high academic performance (8.7/10 GPA)</li>
+                                <li>Developing strong foundation in algorithms and mathematics</li>
+                                <li>Working on personal projects including complex task trackers</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="experience-item">
+                        <div class="quest-marker regular"></div>
+                        <div class="experience-content">
+                            <h3>Competitive Programming & Olympiads</h3>
+                            <p class="company">Various Competitions</p>
+                            <p class="duration">2019 - 2024</p>
+                            <ul class="achievements">
+                                <li>Achieved medals in school programming and mathematics olympiads</li>
+                                <li>Participated in physics and astronomy competitions</li>
+                                <li>Developed strong problem-solving and algorithmic thinking skills</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education Panel -->
+            <div class="content-panel" id="education">
+                <div class="panel-header">
+                    <h2><img src="assets/images/education-icon.png" alt="Education" class="header-icon"> Library Collection - Education</h2>
+                </div>
+                <div class="education-list">
+                    <div class="education-item">
+                        <div class="book-icon">📚</div>
+                        <div class="education-content">
+                            <h3>Bachelor in Computer Science</h3>
+                            <p class="school">Moscow Institute of Physics and Technology (MIPT)</p>
+                            <p class="year">2024 - 2028 (Expected)</p>
+                            <p class="details">Faculty: HSSE • Current GPA: 8.7/10 • 2nd Year Student</p>
+                        </div>
+                    </div>
+                    <div class="education-item">
+                        <div class="book-icon">🏆</div>
+                        <div class="education-content">
+                            <h3>Achievements & Awards</h3>
+                            <ul class="cert-list">
+                                <li>Table Tennis Sports Achievements</li>
+                                <li>School Programming Olympiad Medals</li>
+                                <li>Mathematics Competition Awards</li>
+                                <li>Physics & Astronomy Olympiad Participant</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Panel -->
+            <div class="content-panel" id="projects">
+                <div class="panel-header">
+                    <h2><img src="assets/images/projects-icon.png" alt="Projects" class="header-icon"> Crafted Items - Projects</h2>
+                </div>
+                <div class="projects-grid">
+                    <div class="project-item">
+                        <img src="assets/images/Quirk.jpg" alt="Quirk" class="project-icon">
+                        <div class="project-content">
+                            <h3>Quirk</h3>
+                            <p class="project-description">Complex task tracker with seamless Git integration for developers</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Git</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link">🔒 Private Repository</a>
                             </div>
                         </div>
-                        <div class="contact-method">
-                            <span class="contact-icon">💼</span>
-                            <div class="contact-details">
-                                <span class="contact-label">LinkedIn</span>
-                                <a href="https://linkedin.com/in/yourname" class="contact-value" target="_blank" rel="noopener noreferrer">linkedin.com/in/yourname</a>
+                    </div>
+                    <div class="project-item">
+                        <img src="assets/images/Stardew.jpg" alt="Stardew Valley Resume" class="project-icon">
+                        <div class="project-content">
+                            <h3>Stardew Valley Resume</h3>
+                            <p class="project-description">Interactive pixel-art resume website with game-inspired design</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">HTML</span>
+                                <span class="tech-tag">CSS</span>
+                                <span class="tech-tag">JavaScript</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/Topperoo/MyStylishResume" class="project-link">📁 GitHub Repository</a>
                             </div>
                         </div>
-                        <div class="contact-method">
-                            <span class="contact-icon">🐙</span>
-                            <div class="contact-details">
-                                <span class="contact-label">GitHub</span>
-                                <a href="https://github.com/yourusername" class="contact-value" target="_blank" rel="noopener noreferrer">github.com/yourusername</a>
+                    </div>
+                    <div class="project-item">
+                        <img src="assets/images/Competive.jpg" alt="Competitive Programming" class="project-icon">
+                        <div class="project-content">
+                            <h3>Competitive Programming</h3>
+                            <p class="project-description">Solutions and algorithms from various programming contests</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">C++</span>
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Algorithms</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link">🏆 Contest Results</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <img src="assets/images/projects-icon.png" alt="PSIOP" class="project-icon">
+                        <div class="project-content">
+                            <h3>PSIOP</h3>
+                            <p class="project-description">Neural interface that helps analyze a person's emotions using advanced ML algorithms</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Swift</span>
+                                <span class="tech-tag">Python</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link">🧠 Neural Interface</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <img src="assets/images/projects-icon.png" alt="Dara-pro" class="project-icon">
+                        <div class="project-content">
+                            <h3>Dara-pro</h3>
+                            <p class="project-description">Small-medium business automation platform with intelligent workflow pipelines</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">N8N</span>
+                                <span class="tech-tag">Python</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link">⚙️ Automation</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <img src="assets/images/projects-icon.png" alt="Betting Arbitrage" class="project-icon">
+                        <div class="project-content">
+                            <h3>Betting Exchange Arbitrage</h3>
+                            <p class="project-description">Automated arbitrage detection system for betting exchanges across multiple markets</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link">📊 Arbitrage System</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="contact-form">
-                    <form class="form" action="#" method="POST">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" class="form-input" placeholder=" " required>
-                            <label for="name" class="form-label">Name</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" class="form-input" placeholder=" " required>
-                            <label for="email" class="form-label">Email</label>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" class="form-textarea" placeholder=" " required></textarea>
-                            <label for="message" class="form-label">Message</label>
-                        </div>
-                        <button type="submit" class="form-submit">Send Message</button>
-                    </form>
-                </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p class="footer-text">&copy; 2024 Your Name. Built with passion and forest vibes 🌲</p>
-                <div class="footer-links">
-                    <a href="#home" class="footer-link">Home</a>
-                    <a href="#about" class="footer-link">About</a>
-                    <a href="#projects" class="footer-link">Projects</a>
-                    <a href="#contact" class="footer-link">Contact</a>
+            <!-- Other Panel -->
+            <div class="content-panel" id="other">
+                <div class="panel-header">
+                    <h2><img src="assets/images/other-icon.png" alt="Other" class="header-icon"> Collectibles - Other Interests</h2>
+                </div>
+                <div class="other-grid">
+                    <div class="collectible-item">
+                        <img src="assets/images/Gaming.jpg" alt="Gaming" class="collectible-icon">
+                        <h3>Gaming</h3>
+                        <p>Passionate about game development and strategic gameplay</p>
+                    </div>
+                    <div class="collectible-item">
+                        <img src="assets/images/Drawing.jpg" alt="Drawing" class="collectible-icon">
+                        <h3>Drawing</h3>
+                        <p>Creating artwork and exploring creative visual design</p>
+                    </div>
+                    <div class="collectible-item">
+                        <img src="assets/images/Sport.jpg" alt="Calisthenics" class="collectible-icon">
+                        <h3>Calisthenics</h3>
+                        <p>Bodyweight training and fitness achievements</p>
+                    </div>
+                    <div class="collectible-item">
+                        <img src="assets/images/Dnd.jpg" alt="D&D" class="collectible-icon">
+                        <h3>D&D</h3>
+                        <p>Tabletop RPG enthusiast and creative storytelling</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </footer>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="sparkles">✨</div>
+            <p>Made with 💚 in the Stardew Valley style</p>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
