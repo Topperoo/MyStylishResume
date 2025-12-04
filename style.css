@@ -1,10 +1,3 @@
-/* CSS Custom Properties for Responsive Scaling */
-:root {
-    --clock-scale: 1;
-    --content-max-width: 1200px;
-    --base-spacing: 30px;
-}
-
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -139,9 +132,6 @@ body::after {
     top: 15px;
     right: 20px;
     z-index: 1000;
-    /* Scale entire clock as one unit - all children scale together */
-    transform: scale(var(--clock-scale, 1));
-    transform-origin: top right;
 }
 
 .stardew-clock img {
@@ -1520,33 +1510,8 @@ body::after {
 
 /* Enhanced Responsive Design */
 
-/* Extra Large screens (1600px and above) */
-@media (min-width: 1600px) {
-    :root {
-        --clock-scale: 1.1;
-    }
-}
-
-/* Large screens (1400px - 1599px) */
-@media (min-width: 1400px) and (max-width: 1599px) {
-    :root {
-        --clock-scale: 1;
-    }
-}
-
-/* Medium-Large screens (1200px - 1399px) */
-@media (min-width: 1200px) and (max-width: 1399px) {
-    :root {
-        --clock-scale: 0.95;
-    }
-}
-
 /* Medium screens (1024px - 1199px) */
 @media (min-width: 1024px) and (max-width: 1199px) {
-    :root {
-        --clock-scale: 0.85;
-    }
-
     .game-container {
         max-width: 95%;
         padding: 25px;
@@ -1561,14 +1526,16 @@ body::after {
         padding: 10px 14px;
         font-size: 9px;
     }
+
+    /* Scale clock on medium screens */
+    .stardew-clock {
+        transform: scale(0.9);
+        transform-origin: top right;
+    }
 }
 
 /* Small-Medium screens (900px - 1023px) */
 @media (min-width: 900px) and (max-width: 1023px) {
-    :root {
-        --clock-scale: 0.75;
-    }
-
     .game-container {
         max-width: 96%;
         padding: 20px;
@@ -1590,6 +1557,12 @@ body::after {
         height: 14px;
     }
 
+    /* Scale clock on smaller screens */
+    .stardew-clock {
+        transform: scale(0.8);
+        transform-origin: top right;
+    }
+
     /* Reduce butterfly visibility */
     .butterfly {
         opacity: 0.7;
@@ -1600,10 +1573,6 @@ body::after {
 
 /* Small screens (769px - 899px) */
 @media (min-width: 769px) and (max-width: 899px) {
-    :root {
-        --clock-scale: 0.65;
-    }
-
     .game-container {
         max-width: 98%;
         padding: 15px;
@@ -1629,6 +1598,12 @@ body::after {
     .tab-icon-img {
         width: 12px;
         height: 12px;
+    }
+
+    /* Scale clock on small screens */
+    .stardew-clock {
+        transform: scale(0.7);
+        transform-origin: top right;
     }
 
     .skills-grid {
