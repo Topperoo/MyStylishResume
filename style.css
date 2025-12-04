@@ -1,3 +1,10 @@
+/* CSS Custom Properties for Responsive Scaling */
+:root {
+    --clock-scale: 1;
+    --content-max-width: 1200px;
+    --base-spacing: 30px;
+}
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -130,8 +137,11 @@ body::after {
 .stardew-clock {
     position: fixed;
     top: 15px;
-    right: clamp(20px, 5vw, 100px);
+    right: 20px;
     z-index: 1000;
+    /* Scale entire clock as one unit - all children scale together */
+    transform: scale(var(--clock-scale, 1));
+    transform-origin: top right;
 }
 
 .stardew-clock img {
@@ -1510,6 +1520,149 @@ body::after {
 
 /* Enhanced Responsive Design */
 
+/* Extra Large screens (1600px and above) */
+@media (min-width: 1600px) {
+    :root {
+        --clock-scale: 1.1;
+    }
+}
+
+/* Large screens (1400px - 1599px) */
+@media (min-width: 1400px) and (max-width: 1599px) {
+    :root {
+        --clock-scale: 1;
+    }
+}
+
+/* Medium-Large screens (1200px - 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    :root {
+        --clock-scale: 0.95;
+    }
+}
+
+/* Medium screens (1024px - 1199px) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+    :root {
+        --clock-scale: 0.85;
+    }
+
+    .game-container {
+        max-width: 95%;
+        padding: 25px;
+    }
+
+    .menu-tabs {
+        gap: 8px;
+    }
+
+    .tab {
+        width: 145px;
+        padding: 10px 14px;
+        font-size: 9px;
+    }
+}
+
+/* Small-Medium screens (900px - 1023px) */
+@media (min-width: 900px) and (max-width: 1023px) {
+    :root {
+        --clock-scale: 0.75;
+    }
+
+    .game-container {
+        max-width: 96%;
+        padding: 20px;
+    }
+
+    .menu-tabs {
+        gap: 6px;
+        padding: 15px;
+    }
+
+    .tab {
+        width: 130px;
+        padding: 10px 12px;
+        font-size: 9px;
+    }
+
+    .tab-icon-img {
+        width: 14px;
+        height: 14px;
+    }
+
+    /* Reduce butterfly visibility */
+    .butterfly {
+        opacity: 0.7;
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* Small screens (769px - 899px) */
+@media (min-width: 769px) and (max-width: 899px) {
+    :root {
+        --clock-scale: 0.65;
+    }
+
+    .game-container {
+        max-width: 98%;
+        padding: 15px;
+    }
+
+    .character-name {
+        font-size: 18px;
+    }
+
+    .menu-tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+        padding: 12px;
+    }
+
+    .tab {
+        width: 120px;
+        padding: 10px 10px;
+        font-size: 8px;
+    }
+
+    .tab-icon-img {
+        width: 12px;
+        height: 12px;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Hide some butterflies on smaller screens */
+    .butterfly {
+        opacity: 0.5;
+        width: 24px;
+        height: 24px;
+    }
+
+    .butterfly-4,
+    .butterfly-5,
+    .butterfly-6 {
+        display: none;
+    }
+
+    /* Music player smaller */
+    .music-toggle {
+        width: 42px;
+        height: 42px;
+    }
+
+    .music-icon {
+        font-size: 18px;
+    }
+}
+
 /* Tablet (768px and below) */
 @media (max-width: 768px) {
     .game-container {
@@ -1684,9 +1837,14 @@ body::after {
     .footer {
         padding: 15px;
     }
-    
+
     .footer p {
         font-size: 8px;
+    }
+
+    /* Hide butterflies on tablets */
+    .butterflies {
+        display: none;
     }
 }
 
