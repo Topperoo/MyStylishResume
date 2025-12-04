@@ -690,6 +690,14 @@ body::after {
     pointer-events: none;
 }
 
+/* Leaf attached to content box - always at top-right corner */
+.content-leaf {
+    position: absolute;
+    top: -48px;
+    right: -48px;
+    z-index: 100;
+}
+
 .content-panel {
     display: none;
     animation: fadeIn 0.3s ease-in;

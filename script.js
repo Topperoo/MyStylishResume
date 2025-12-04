@@ -575,25 +575,11 @@ document.addEventListener('DOMContentLoaded', function() {
      * INTERACTIVE LEAVES SYSTEM
      * ======================================== */
 
-    // Creates and positions the magical clickable leaf
+    // Initialize the clickable leaf attached to content box
     function initializeLeaves() {
-        const leavesContainer = document.getElementById('leavesContainer');
-        const contentContainer = document.querySelector('.content-container');
+        const leaf = document.getElementById('contentLeaf');
 
-        if (!leavesContainer || !contentContainer) return;
-
-        const leaf = document.createElement('div');
-        leaf.className = 'leaf';
-
-        // Position leaf at top-right corner of content area
-        const containerRect = contentContainer.getBoundingClientRect();
-        const x = containerRect.right - 48; // Half leaf visible (48px = half of 96px leaf)
-        const y = containerRect.top - 48; // Half leaf above container
-
-        leaf.style.left = x + 'px';
-        leaf.style.top = y + 'px';
-        leaf.style.animationDelay = '0s';
-        leaf.style.animationDuration = '4s';
+        if (!leaf) return;
 
         // Add magical petal explosion on click
         leaf.addEventListener('click', function(e) {
@@ -608,8 +594,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 leaf.classList.remove('clicked');
             }, 300);
         });
-
-        leavesContainer.appendChild(leaf);
     }
     
     // Creates magical petal explosion effect when leaf is clicked
@@ -672,19 +656,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize the leaves system
     initializeLeaves();
-    
-    // Handle window resize - reposition leaf appropriately
-    let resizeTimeout;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            const leavesContainer = document.getElementById('leavesContainer');
-            if (leavesContainer) {
-                leavesContainer.innerHTML = '';
-                initializeLeaves();
-            }
-        }, 500); // Debounce resize events
-    });
 
     /* ========================================
      * INTERACTIVE BUTTERFLY COLOR CHANGER
