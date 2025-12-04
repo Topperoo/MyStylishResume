@@ -1,3 +1,60 @@
+/* ========================================
+ * AUTO-SCALE PAGE TO FIT ALL ELEMENTS
+ * Ensures clock doesn't overlap content on any device
+ * ======================================== */
+(function() {
+    const DESIGN_WIDTH = 1500; // Width where design works perfectly (your screen)
+
+    function setPageScale() {
+        const viewportWidth = window.innerWidth;
+
+        // If viewport is wide enough, no scaling needed
+        if (viewportWidth >= DESIGN_WIDTH) {
+            document.documentElement.style.zoom = '';
+            document.documentElement.style.transform = '';
+            document.documentElement.style.transformOrigin = '';
+            document.body.style.minWidth = '';
+            return;
+        }
+
+        // Calculate scale factor to fit everything
+        const scale = viewportWidth / DESIGN_WIDTH;
+
+        // Detect Firefox (doesn't support zoom)
+        const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
+        if (isFirefox) {
+            // Firefox: use transform
+            document.documentElement.style.transform = `scale(${scale})`;
+            document.documentElement.style.transformOrigin = 'top left';
+            document.documentElement.style.width = `${100 / scale}%`;
+            document.documentElement.style.height = `${100 / scale}%`;
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'auto';
+            document.body.style.height = `${100 / scale}%`;
+        } else {
+            // Chrome, Safari, Edge: use zoom (handles fixed elements properly)
+            document.documentElement.style.zoom = scale;
+            document.body.style.minWidth = DESIGN_WIDTH + 'px';
+        }
+    }
+
+    // Run on load
+    setPageScale();
+
+    // Run on resize with debounce
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(setPageScale, 100);
+    });
+
+    // Also run after fonts load (can affect layout)
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(setPageScale);
+    }
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
     /* ========================================
      * MUSIC PLAYER SYSTEM

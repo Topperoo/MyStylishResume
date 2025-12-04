@@ -358,8 +358,7 @@ body::after {
 
 /* Game Container */
 .game-container {
-    /* Ensure container never overlaps with clock: min of 1200px or viewport minus clock space */
-    max-width: min(1200px, calc(100vw - 380px));
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     min-height: 100vh;
