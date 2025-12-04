@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     /* ========================================
-     * MUSIC PLAYER SYSTEM
+     * CROSS-BROWSER AUDIO SYSTEM
      * ======================================== */
 
     const bgMusic = document.getElementById('bgMusic');
@@ -9,16 +9,47 @@ document.addEventListener('DOMContentLoaded', function() {
     let isPlaying = false;
     let audioEnabled = false;
 
+    // Detect audio format support (Safari doesn't support OGG)
+    function canPlayOgg() {
+        const audio = document.createElement('audio');
+        return !!(audio.canPlayType && audio.canPlayType('audio/ogg; codecs="vorbis"').replace(/no/, ''));
+    }
+
+    // Get the right audio file path based on browser support
+    function getAudioPath(baseName) {
+        // Try OGG first (better quality, smaller size), fallback to MP3 for Safari
+        if (canPlayOgg()) {
+            return 'assets/Music/' + baseName + '.ogg';
+        } else {
+            return 'assets/Music/' + baseName + '.mp3';
+        }
+    }
+
+    // Create audio element with error handling
+    function createAudio(baseName, volume) {
+        const sound = new Audio();
+        sound.preload = 'auto';
+        sound.volume = volume || 0.5;
+
+        // Try primary format
+        sound.src = getAudioPath(baseName);
+
+        // On error, try the other format
+        sound.onerror = function() {
+            const altFormat = canPlayOgg() ? '.mp3' : '.ogg';
+            sound.src = 'assets/Music/' + baseName + altFormat;
+        };
+
+        return sound;
+    }
+
     // Create a pool of click sounds for instant playback without lag
     const clickSoundPool = [];
     const poolSize = 5;
     let poolIndex = 0;
 
     for (let i = 0; i < poolSize; i++) {
-        const sound = new Audio();
-        sound.preload = 'auto';
-        sound.src = 'assets/Music/Click.ogg';
-        sound.volume = 0.3;
+        const sound = createAudio('Click', 0.3);
         sound.load();
         clickSoundPool.push(sound);
     }
@@ -27,9 +58,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function playLeafSound() {
         if (!audioEnabled) return;
         try {
-            const sound = new Audio('assets/Music/Leaf.ogg');
-            sound.volume = 0.4;
-            sound.play();
+            const sound = createAudio('Leaf', 0.4);
+            sound.play().catch(function() {});
         } catch(e) {}
     }
 
@@ -37,9 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function playJingleSound() {
         if (!audioEnabled) return;
         try {
-            const sound = new Audio('assets/Music/Jingle.ogg');
-            sound.volume = 0.6;
-            sound.play();
+            const sound = createAudio('Jingle', 0.6);
+            sound.play().catch(function() {});
         } catch(e) {}
     }
 
@@ -56,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const sound = clickSoundPool[poolIndex];
             sound.currentTime = 0;
-            sound.play();
+            sound.play().catch(function() {});
             poolIndex = (poolIndex + 1) % poolSize;
         } catch(e) {}
     }

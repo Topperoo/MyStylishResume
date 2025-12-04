@@ -3,6 +3,18 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* Smooth scrolling with Safari support */
+    -webkit-box-sizing: border-box;
+}
+
+/* Cross-browser flexbox gap fallback for older Safari */
+@supports not (gap: 1px) {
+    .contact-info > *,
+    .menu-tabs > *,
+    .project-tech > *,
+    .project-links > * {
+        margin: 4px;
+    }
 }
 
 html {
@@ -418,6 +430,16 @@ body::after {
     gap: 30px;
     position: relative;
     overflow: hidden;
+}
+
+/* Fallback for older Safari that doesn't support gap in flexbox */
+@supports not (gap: 30px) {
+    .character-portrait > * {
+        margin-right: 30px;
+    }
+    .character-portrait > *:last-child {
+        margin-right: 0;
+    }
 }
 
 .pixel-avatar {
