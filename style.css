@@ -133,11 +133,14 @@ body::after {
 .stardew-clock {
     position: fixed;
     top: 15px;
+    /* Safari fallback */
+    right: 60px;
     right: clamp(20px, 5vw, 100px);
     z-index: 1000;
 }
 
 .stardew-clock img {
+    image-rendering: -webkit-optimize-contrast;
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
@@ -255,6 +258,7 @@ body::after {
     position: absolute;
     width: 32px;
     height: 32px;
+    image-rendering: -webkit-optimize-contrast;
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
@@ -358,7 +362,9 @@ body::after {
 
 /* Game Container */
 .game-container {
-    /* Ensure container never overlaps with clock: min of 1200px or viewport minus clock space */
+    /* Safari fallback - fixed width */
+    max-width: 1200px;
+    /* Modern browsers: ensure container never overlaps with clock */
     max-width: min(1200px, calc(100vw - 380px));
     margin: 0 auto;
     padding: 20px;
@@ -389,6 +395,7 @@ body::after {
         /* Drop shadow */
         0 12px 25px rgba(0,0,0,0.5);
     position: relative;
+    -webkit-backdrop-filter: blur(2px);
     backdrop-filter: blur(2px);
 }
 
@@ -675,6 +682,7 @@ body::after {
         0 12px 25px rgba(0,0,0,0.5);
     position: relative;
     min-height: 400px;
+    -webkit-backdrop-filter: blur(2px);
     backdrop-filter: blur(2px);
 }
 
