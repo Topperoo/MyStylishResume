@@ -17,17 +17,20 @@ html, body {
 
 body {
     font-family: 'Press Start 2P', cursive;
-    background: 
-        /* Authentic Stardew Valley background */
-        url('assets/images/stardewbackground.png') repeat,
-        /* Fallback gradient if image doesn't load */
-        linear-gradient(180deg, #87CEEB 0%, #98D8E8 60%, #90EE90 100%);
-    background-size: auto, cover;
+    /* Fallback solid color */
+    background-color: #87CEEB;
+    /* Main background image */
+    background-image: url('assets/images/stardewbackground.png');
+    background-repeat: repeat;
+    background-size: auto;
     min-height: 100vh;
     color: #2F1B14;
     overflow-x: hidden;
     position: relative;
+    /* Pixelated rendering with Safari support */
+    image-rendering: -webkit-optimize-contrast;
     image-rendering: pixelated;
+    image-rendering: crisp-edges;
 }
 
 body::before {
