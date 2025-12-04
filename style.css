@@ -130,7 +130,7 @@ body::after {
 .stardew-clock {
     position: fixed;
     top: 15px;
-    right: 20px;
+    right: clamp(20px, 5vw, 100px);
     z-index: 1000;
 }
 
