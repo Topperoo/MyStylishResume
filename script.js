@@ -629,28 +629,36 @@ document.addEventListener('DOMContentLoaded', function() {
     function createPetalExplosion(leafElement) {
         const petalCount = 8 + Math.floor(Math.random() * 5); // Random 8-12 petals
         const petalTypes = ['type1', 'type2', 'type3', 'type4']; // 4 different petal styles
-        
-        // Calculate explosion origin at center of leaf
+
+        // Get the content container as the reference for positioning
+        const contentContainer = document.querySelector('.content-container');
+        if (!contentContainer) return;
+
+        // Calculate position relative to content container (not viewport)
+        // This ensures petals spawn at same position regardless of zoom/scale
+        const containerRect = contentContainer.getBoundingClientRect();
         const leafRect = leafElement.getBoundingClientRect();
-        const centerX = leafRect.left + leafRect.width / 2;
-        const centerY = leafRect.top + leafRect.height / 2;
-        
+
+        // Position relative to container
+        const relativeX = leafRect.left - containerRect.left + leafRect.width / 2;
+        const relativeY = leafRect.top - containerRect.top + leafRect.height / 2;
+
         for (let i = 0; i < petalCount; i++) {
             const petal = document.createElement('div');
             petal.className = `petal ${petalTypes[Math.floor(Math.random() * petalTypes.length)]}`;
-            
+
             // Position petals at explosion center with slight random spread
             const spreadX = (Math.random() - 0.5) * 20; // ±10px horizontal spread
             const spreadY = (Math.random() - 0.5) * 20; // ±10px vertical spread
-            petal.style.left = (centerX - 12 + spreadX) + 'px';
-            petal.style.top = (centerY - 12 + spreadY) + 'px';
-            
+            petal.style.left = (relativeX - 12 + spreadX) + 'px';
+            petal.style.top = (relativeY - 12 + spreadY) + 'px';
+
             // Physics simulation: wind effect vs normal fall
             const hasWindEffect = Math.random() < 0.3; // 30% chance of wind
             const fallDistance = 300 + Math.random() * 400; // Variable fall distance
-            
+
             let driftDistance, fallDuration, windAnimation;
-            
+
             if (hasWindEffect) {
                 // Wind effect: strong sideways drift, slower fall
                 driftDistance = (Math.random() - 0.5) * 400 + (Math.random() > 0.5 ? 150 : -150);
@@ -662,18 +670,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 fallDuration = 3 + Math.random() * 2; // 3-5 seconds
                 windAnimation = 'petalFallVariable';
             }
-            
+
             const rotation = Math.random() * 720 - 360; // Random rotation ±360°
             const delay = i * 0.02; // Staggered release timing
-            
+
             // Apply physics parameters via CSS custom properties
             petal.style.setProperty('--drift', driftDistance + 'px');
             petal.style.setProperty('--rotation', rotation + 'deg');
             petal.style.setProperty('--fall-distance', fallDistance + 'px');
             petal.style.animation = `${windAnimation} ${fallDuration}s linear ${delay}s forwards`;
-            
-            document.body.appendChild(petal);
-            
+
+            // Append to content container so petals scale with it
+            contentContainer.appendChild(petal);
+
             // Clean up petal after animation completes
             setTimeout(() => {
                 if (petal.parentNode) {
