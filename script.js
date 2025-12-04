@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function playJingleSound() {
         if (!audioEnabled) return;
         try {
-            const sound = createAudio('Jingle', 0.6);
+            const sound = createAudio('Jingle', 0.8);
             sound.play().catch(function() {});
         } catch(e) {}
     }
