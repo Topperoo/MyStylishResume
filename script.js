@@ -1,5 +1,110 @@
 document.addEventListener('DOMContentLoaded', function() {
     /* ========================================
+     * MUSIC PLAYER SYSTEM
+     * ======================================== */
+
+    const bgMusic = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    const musicIcon = document.getElementById('musicIcon');
+    let isPlaying = false;
+    let audioEnabled = false;
+
+    // Create a pool of click sounds for instant playback without lag
+    const clickSoundPool = [];
+    const poolSize = 5;
+    let poolIndex = 0;
+
+    for (let i = 0; i < poolSize; i++) {
+        const sound = new Audio();
+        sound.preload = 'auto';
+        sound.src = 'assets/Music/Click.ogg';
+        sound.volume = 0.3;
+        sound.load();
+        clickSoundPool.push(sound);
+    }
+
+    // Function to play leaf sound (creates new instance each time)
+    function playLeafSound() {
+        if (!audioEnabled) return;
+        try {
+            const sound = new Audio('assets/Music/Leaf.ogg');
+            sound.volume = 0.4;
+            sound.play();
+        } catch(e) {}
+    }
+
+    // Function to play jingle sound for butterfly
+    function playJingleSound() {
+        if (!audioEnabled) return;
+        try {
+            const sound = new Audio('assets/Music/Jingle.ogg');
+            sound.volume = 0.6;
+            sound.play();
+        } catch(e) {}
+    }
+
+    // Make sounds available globally
+    window.playLeafSound = playLeafSound;
+    window.playJingleSound = playJingleSound;
+
+    // Set background music volume
+    if (bgMusic) bgMusic.volume = 0.5;
+
+    // Function to play click sound using pool
+    function playClickSound() {
+        if (!audioEnabled) return;
+        try {
+            const sound = clickSoundPool[poolIndex];
+            sound.currentTime = 0;
+            sound.play();
+            poolIndex = (poolIndex + 1) % poolSize;
+        } catch(e) {}
+    }
+
+    function toggleMusic() {
+        if (!bgMusic) return;
+
+        // Enable audio on first interaction
+        audioEnabled = true;
+
+        if (isPlaying) {
+            bgMusic.pause();
+            if (musicIcon) musicIcon.textContent = '🔇';
+            if (musicToggle) musicToggle.classList.remove('playing');
+            isPlaying = false;
+        } else {
+            bgMusic.play().then(function() {
+                if (musicIcon) musicIcon.textContent = '🎵';
+                if (musicToggle) musicToggle.classList.add('playing');
+                isPlaying = true;
+            }).catch(function(err) {
+                console.log('Audio playback failed:', err);
+            });
+        }
+    }
+
+    if (musicToggle) {
+        musicToggle.onclick = toggleMusic;
+
+        // Handle audio ending (in case loop fails)
+        if (bgMusic) {
+            bgMusic.addEventListener('ended', function() {
+                bgMusic.currentTime = 0;
+                bgMusic.play();
+            });
+        }
+    }
+
+    // Enable audio on first click anywhere
+    document.addEventListener('click', function enableAudio() {
+        audioEnabled = true;
+        document.removeEventListener('click', enableAudio);
+    }, { once: true });
+
+    // Make playClickSound available globally for tabs
+    window.playClickSound = playClickSound;
+
+    /* ========================================
      * CLOCK AND TIME MANAGEMENT
      * ======================================== */
     
@@ -93,19 +198,28 @@ document.addEventListener('DOMContentLoaded', function() {
     function setMockWeather() {
         const currentMonth = new Date().getMonth() + 1;
         const hour = new Date().getHours();
-        
+
         // Simple weather logic based on time and season
         let mockCondition = 'clear';
-        
+
+        // Winter months: chance of snow
+        if (currentMonth === 12 || currentMonth === 1 || currentMonth === 2) {
+            const rand = Math.random();
+            if (rand > 0.6) {
+                mockCondition = 'snow';
+            } else if (rand > 0.4) {
+                mockCondition = 'clouds';
+            }
+        }
         // Evening/night hours: 30% chance of rain
-        if (hour >= 18 || hour <= 6) {
+        else if (hour >= 18 || hour <= 6) {
             mockCondition = Math.random() > 0.7 ? 'rain' : 'clear';
-        } 
-        // Winter months: 50% chance of clouds
-        else if (currentMonth >= 11 || currentMonth <= 2) {
+        }
+        // Other months: slight chance of clouds
+        else if (currentMonth >= 9 && currentMonth <= 11) {
             mockCondition = Math.random() > 0.5 ? 'clouds' : 'clear';
         }
-        
+
         updateWeatherIcon(mockCondition, currentMonth);
     }
     
@@ -145,13 +259,13 @@ document.addEventListener('DOMContentLoaded', function() {
             weatherFile = 'Rain.png';
         } else if (weatherCode >= 71 && weatherCode <= 77) {
             // 71-77: Snow fall
-            weatherFile = 'Rain.png'; // Use rain icon for snow
+            weatherFile = 'Snow.png';
         } else if (weatherCode >= 80 && weatherCode <= 82) {
             // 80-82: Rain showers
             weatherFile = 'Rain.png';
         } else if (weatherCode >= 85 && weatherCode <= 86) {
             // 85-86: Snow showers
-            weatherFile = 'Rain.png'; // Use rain icon for snow
+            weatherFile = 'Snow.png';
         } else if (weatherCode >= 95 && weatherCode <= 99) {
             // 95-99: Thunderstorms
             weatherFile = 'Storm.png';
@@ -167,13 +281,16 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateWeatherIcon(condition, month) {
         const weatherImage = document.getElementById('weatherImage');
         if (!weatherImage) return;
-        
+
         let weatherFile = 'Sun.png'; // Default to sunny weather
-        
+
         switch (condition) {
             case 'rain':
             case 'drizzle':
                 weatherFile = 'Rain.png';
+                break;
+            case 'snow':
+                weatherFile = 'Snow.png';
                 break;
             case 'thunderstorm':
                 weatherFile = 'Storm.png';
@@ -195,26 +312,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 weatherFile = 'Sun.png';
                 break;
         }
-        
+
         weatherImage.src = `assets/images/${weatherFile}`;
     }
     
     /* ========================================
      * INITIALIZATION AND TIMERS
      * ======================================== */
-    
+
+    // Store interval IDs for cleanup
+    const intervals = [];
+
     // Initialize all time-based updates with appropriate intervals
     updateClock();
-    setInterval(updateClock, 1000); // Update every second
-    
+    intervals.push(setInterval(updateClock, 1000)); // Update every second
+
     updateDate();
-    setInterval(updateDate, 3600000); // Update every hour (optimization)
-    
+    intervals.push(setInterval(updateDate, 3600000)); // Update every hour (optimization)
+
     updateSeason(new Date());
-    setInterval(() => updateSeason(new Date()), 3600000); // Update every hour
-    
+    intervals.push(setInterval(() => updateSeason(new Date()), 3600000)); // Update every hour
+
     updateWeather();
-    setInterval(updateWeather, 1800000); // Update every 30 minutes
+    intervals.push(setInterval(updateWeather, 1800000)); // Update every 30 minutes
     
     /* ========================================
      * TAB NAVIGATION SYSTEM
@@ -228,7 +348,10 @@ document.addEventListener('DOMContentLoaded', function() {
         tab.addEventListener('click', function() {
             const targetPanel = this.getAttribute('data-tab');
             if (!targetPanel) return;
-            
+
+            // Play click sound
+            if (window.playClickSound) window.playClickSound();
+
             // Deactivate all tabs and panels with complete state reset
             document.querySelectorAll('.tab').forEach(t => {
                 t.classList.remove('active');
@@ -297,15 +420,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function createSparkle() {
         const sparkles = document.querySelector('.sparkles');
         if (!sparkles) return;
-        
+
         const sparkleElements = ['✨', '⭐', '🌟', '💫'];
-        
-        setInterval(() => {
+
+        intervals.push(setInterval(() => {
             const randomSparkle = sparkleElements[Math.floor(Math.random() * sparkleElements.length)];
             sparkles.textContent = randomSparkle;
-        }, 2000);
+        }, 2000));
     }
-    
+
     createSparkle();
     
     // Adds enhanced hover effects to interactive elements
@@ -365,20 +488,20 @@ document.addEventListener('DOMContentLoaded', function() {
     function floatingAvatar() {
         const avatar = document.querySelector('.pixel-avatar');
         if (!avatar) return;
-        
+
         let direction = 1;
         let position = 0;
-        
-        setInterval(() => {
+
+        intervals.push(setInterval(() => {
             position += direction * 0.5;
             // Reverse direction at boundaries
             if (position >= 3 || position <= -3) {
                 direction *= -1;
             }
             avatar.style.transform = `translateY(${position}px)`;
-        }, 100);
+        }, 100));
     }
-    
+
     floatingAvatar();
     
     /* ========================================
@@ -451,38 +574,41 @@ document.addEventListener('DOMContentLoaded', function() {
     /* ========================================
      * INTERACTIVE LEAVES SYSTEM
      * ======================================== */
-    
+
     // Creates and positions the magical clickable leaf
     function initializeLeaves() {
         const leavesContainer = document.getElementById('leavesContainer');
         const contentContainer = document.querySelector('.content-container');
-        
+
         if (!leavesContainer || !contentContainer) return;
-        
+
         const leaf = document.createElement('div');
         leaf.className = 'leaf';
-        
+
         // Position leaf at top-right corner of content area
         const containerRect = contentContainer.getBoundingClientRect();
         const x = containerRect.right - 48; // Half leaf visible (48px = half of 96px leaf)
         const y = containerRect.top - 48; // Half leaf above container
-        
+
         leaf.style.left = x + 'px';
         leaf.style.top = y + 'px';
         leaf.style.animationDelay = '0s';
         leaf.style.animationDuration = '4s';
-        
+
         // Add magical petal explosion on click
         leaf.addEventListener('click', function(e) {
             createPetalExplosion(leaf);
-            
+
+            // Play leaf sound
+            if (window.playLeafSound) window.playLeafSound();
+
             // Visual feedback - shake animation
             leaf.classList.add('clicked');
             setTimeout(() => {
                 leaf.classList.remove('clicked');
             }, 300);
         });
-        
+
         leavesContainer.appendChild(leaf);
     }
     
@@ -579,7 +705,10 @@ document.addEventListener('DOMContentLoaded', function() {
         butterfly3.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            
+
+            // Play jingle sound
+            if (window.playJingleSound) window.playJingleSound();
+
             // Remove current color class
             butterfly3.classList.remove(`color-${currentColor}`);
             
@@ -599,6 +728,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     initializeButterflyColorChanger();
 
+    // Cleanup intervals on page unload to prevent memory leaks
+    window.addEventListener('beforeunload', function() {
+        intervals.forEach(id => clearInterval(id));
+    });
+
 });
 
 
@@ -608,13 +742,46 @@ document.addEventListener('DOMContentLoaded', function() {
  * COPY TO CLIPBOARD FUNCTIONALITY
  * ======================================== */
 
+// Download resume PDF
+function downloadResume(event) {
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    // Play jingle sound
+    if (window.playJingleSound) window.playJingleSound();
+
+    // Use fetch to download without navigation
+    fetch('assets/Resume.pdf')
+        .then(response => response.blob())
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'Aleksandr_Chernousov_Resume.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(err => {
+            console.log('Download failed:', err);
+        });
+
+    return false;
+}
+
 // Copies text to clipboard with fallback for older browsers
 function copyToClipboard(text) {
     if (!text) {
         showCopyNotification('Nothing to copy');
         return;
     }
-    
+
+    // Play jingle sound
+    if (window.playJingleSound) window.playJingleSound();
+
     // Modern browsers: use Clipboard API
     if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(text).then(function() {

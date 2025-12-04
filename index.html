@@ -11,6 +11,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Music Player Widget -->
+    <div class="music-player" id="musicPlayer">
+        <button class="music-toggle" id="musicToggle" title="Toggle Music">
+            <span class="music-icon" id="musicIcon">🔇</span>
+        </button>
+        <audio id="bgMusic" loop preload="auto">
+            <source src="assets/Music/MainTheme_new.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
     <!-- Clock Widget -->
     <div class="stardew-clock">
         <img src="assets/images/clock1.png" alt="Stardew Valley Clock">
@@ -59,6 +69,11 @@
                             <span class="icon">📱</span>
                             <a href="https://t.me/mipt_geeks" target="_blank">Telegram Channel</a>
                             <button class="copy-btn" onclick="copyToClipboard('https://t.me/mipt_geeks')" title="Copy Telegram URL">📋</button>
+                        </div>
+                        <div class="contact-item">
+                            <span class="icon">📄</span>
+                            <span class="download-link" onclick="downloadResume(event)">Download PDF Resume</span>
+                            <button class="copy-btn download-btn" onclick="downloadResume(event)" title="Download PDF">⬇️</button>
                         </div>
                     </div>
                 </div>
@@ -371,7 +386,7 @@
 
         <!-- Footer -->
         <div class="footer">
-            <div class="sparkles">✨</div>
+            <img src="assets/images/Star.png" alt="Star" class="spinning-star">
             <p>Made with 💚 in the Stardew Valley style</p>
         </div>
     </div>
